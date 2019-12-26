@@ -1,10 +1,22 @@
 import React from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import { Text } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 
-const ProductsScreen = () => (
-  <SafeAreaView>
-    <Text>ProductsScreen</Text>
-  </SafeAreaView>
-);
+import { useDispatch } from 'react-redux';
+import { getProducts } from './duck/operations';
+
+import './duck/reducer';
+
+const ProductsScreen = () => {
+  const dispatch = useDispatch();
+
+  dispatch(getProducts());
+
+  return (
+    <SafeAreaView>
+      <Text>ProductsScreen</Text>
+    </SafeAreaView>
+  );
+};
 
 export default ProductsScreen;

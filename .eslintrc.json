@@ -24,16 +24,8 @@
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
   "rules": {
-    "import/extensions": [
-      "error",
-      "always",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ],
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
     "arrow-body-style": [
       "error",
       "as-needed",
@@ -79,6 +71,7 @@
     },
     "import/resolver": {
       "node": {
+        "path": ["./src/utils"],
         "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"]
       }
     }
