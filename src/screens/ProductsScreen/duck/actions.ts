@@ -1,15 +1,22 @@
+import { normalize, schema } from 'normalizr';
+
 import * as types from './types';
+
+const productSchema = new schema.Entity('products');
+const productListSchema = [productSchema];
 
 const getProductsRequest = () =>
   ({
     type: types.getProductsRequest,
   } as const);
 
-const getProductsSuccess = (products: { name: string }[]) =>
+const getProductsSuccess = (
+  products: import('apis/wooCommerce/types/product').ProductListResponse,
+) =>
   ({
     type: types.getProductsSuccess,
     payload: {
-      products,
+      ...normalize<import('./reducer').Product>(products, productListSchema),
     },
   } as const);
 
