@@ -1,3 +1,9 @@
-export const getProductsRequest = '[Products Screen] Get Products Request';
-export const getProductsSuccess = '[Products Screen] Get Products Success';
-export const getProductsFailure = '[Products Screen] Get Products Failure';
+const getProductsRequest = '[Products Screen] Get Products Request';
+const getProductsSuccess = '[Products Screen] Get Products Success';
+const getProductsFailure = '[Products Screen] Get Products Failure';
+
+export default {
+  getProductsRequest,
+  getProductsSuccess,
+  getProductsFailure,
+} as const;

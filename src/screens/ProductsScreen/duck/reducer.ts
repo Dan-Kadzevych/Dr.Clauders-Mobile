@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
+import { createReducer } from 'typesafe-actions';
+import { DeepReadonly } from 'utility-types';
 
-import createReducer from 'utils/redux/createReducer';
-import * as types from './types';
+import types from './types';
 
-export type Product = {
+export type Product = DeepReadonly<{
   attributes: {
     id: number;
     name: string;
@@ -11,17 +12,17 @@ export type Product = {
     visible: boolean;
     variation: boolean;
     options: string[];
-  };
+  }[];
   categories: {
     id: number;
     name: string;
     slug: string;
-  };
+  }[];
   default_attributes: {
     id: number;
     name: string;
     option: string;
-  };
+  }[];
   images: {
     id: number;
     src: string;
@@ -37,13 +38,16 @@ export type Product = {
   stock_status: 'instock' | 'outofstock' | 'onbackorder';
   type: 'simple' | 'grouped' | 'external' | 'varialbe';
   variations: number[];
-};
+}>;
 
-type ProductsState = { byId: { [key: string]: Product }; ids: number[] };
+type ProductsState = DeepReadonly<{
+  byId: { [key: string]: Product };
+  ids: number[];
+}>;
 
-type ProductsScreenState = {
+type ProductsScreenState = DeepReadonly<{
   products: ProductsState;
-};
+}>;
 
 const initialState: ProductsScreenState = {
   products: {
@@ -52,11 +56,9 @@ const initialState: ProductsScreenState = {
   },
 };
 
-const productsReducer = createReducer<
-  ProductsState,
-  import('./actions').ActionTypes
->(initialState.products, {
-  [types.getProductsSuccess]: (
+const productsReducer = createReducer(initialState.products).handleType(
+  types.getProductsSuccess,
+  (
     state,
     {
       payload: {
@@ -68,8 +70,8 @@ const productsReducer = createReducer<
     byId: { ...state.byId, ...products },
     ids: [...state.ids, ...result],
   }),
-});
+);
 
-export default combineReducers<ProductsScreenState>({
+export default combineReducers({
   products: productsReducer,
 });

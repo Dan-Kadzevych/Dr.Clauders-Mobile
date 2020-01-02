@@ -1,3 +1,3 @@
 export type Params = {
-  [index: string]: any;
+  [index: string]: string | number;
 };
