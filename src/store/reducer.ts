@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import productsReducer from 'screens/ProductsScreen/duck/reducer';
 
-export default combineReducers({
+const rootReducer = combineReducers({
   productsScreen: productsReducer,
 });
+
+export default rootReducer;

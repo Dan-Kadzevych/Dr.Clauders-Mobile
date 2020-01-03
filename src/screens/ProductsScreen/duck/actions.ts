@@ -10,8 +10,8 @@ const getProductsRequest = createAction(types.getProductsRequest)<void>();
 
 const getProductsSuccess = createAction(
   types.getProductsSuccess,
-  (products: import('apis/wooCommerce/types/product').ProductListResponse) => ({
-    ...normalize<import('./reducer').Product>(products, productListSchema),
+  (products: import('ProductModels').ProductListResponse) => ({
+    ...normalize<import('ProductModels').Product>(products, productListSchema),
   }),
 )();
 
