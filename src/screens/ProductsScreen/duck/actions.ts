@@ -1,29 +1,56 @@
-import { normalize, schema } from 'normalizr';
-import { createAction } from 'typesafe-actions';
+import { createAsyncAction } from 'typesafe-actions';
+import { normalize } from 'normalizr';
 
+import { productListSchema, categoryListSchema } from './schemas';
 import types from './types';
 
-const productSchema = new schema.Entity('products');
-const productListSchema = [productSchema];
+const getProductsAsync = createAsyncAction(
+  types.getProductsRequest,
+  [
+    types.getProductsSuccess,
+    (products: import('ProductModels').ProductListResponse) => ({
+      ...normalize(products, productListSchema),
+    }),
+  ],
+  [
+    types.getProductsFailure,
+    (error: import('ErrorTypes').Error) => ({
+      error,
+    }),
+  ],
+)<
+  undefined,
+  import('normalizr').NormalizedSchema<
+    { products: { [key: string]: import('ProductModels').Product } },
+    number[]
+  >,
+  { error: import('ErrorTypes').Error }
+>();
 
-const getProductsRequest = createAction(types.getProductsRequest)<void>();
-
-const getProductsSuccess = createAction(
-  types.getProductsSuccess,
-  (products: import('ProductModels').ProductListResponse) => ({
-    ...normalize<import('ProductModels').Product>(products, productListSchema),
-  }),
-)();
-
-const getProductsFailure = createAction(
-  types.getProductsFailure,
-  (error: { message: string }) => ({
-    error,
-  }),
-)();
+const getCategoriesAsync = createAsyncAction(
+  types.getCategoriesRequest,
+  [
+    types.getCategoriesSuccess,
+    (categories: import('CategoryModels').CategoryListResponse) => ({
+      ...normalize(categories, categoryListSchema),
+    }),
+  ],
+  [
+    types.getCategoriesFailure,
+    (error: import('ErrorTypes').Error) => ({
+      error,
+    }),
+  ],
+)<
+  undefined,
+  import('normalizr').NormalizedSchema<
+    { categories: { [key: string]: import('CategoryModels').Category } },
+    number[]
+  >,
+  { error: import('ErrorTypes').Error }
+>();
 
 export default {
-  getProductsRequest,
-  getProductsSuccess,
-  getProductsFailure,
+  getProductsAsync,
+  getCategoriesAsync,
 } as const;

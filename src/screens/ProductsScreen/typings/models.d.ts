@@ -1,5 +1,5 @@
 declare module 'ProductModels' {
-  export type ProductResponse = {
+  export type Product = {
     attributes: {
       id: number;
       name: string;
@@ -34,6 +34,19 @@ declare module 'ProductModels' {
     type: 'simple' | 'grouped' | 'external' | 'varialbe';
     variations: number[];
   };
+}
 
-  export type ProductListResponse = ProductResponse[];
+declare module 'CategoryModels' {
+  export type Category = {
+    count: number;
+    id: number;
+    image: {
+      id: number;
+      name: string;
+      src: string;
+    } | null;
+    menu_order: number;
+    name: string;
+    parent: number;
+  };
 }
