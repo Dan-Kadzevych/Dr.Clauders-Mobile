@@ -31,9 +31,11 @@ declare module 'ProductModels' {
     short_description: string;
     stock_quantity: number | null;
     stock_status: 'instock' | 'outofstock' | 'onbackorder';
-    type: 'simple' | 'grouped' | 'external' | 'varialbe';
+    type: 'simple' | 'grouped' | 'external' | 'variable';
     variations: number[];
   };
+
+  export type NormalizedProducts = { products: { [key: string]: Product } };
 }
 
 declare module 'CategoryModels' {
@@ -48,5 +50,9 @@ declare module 'CategoryModels' {
     menu_order: number;
     name: string;
     parent: number;
+  };
+
+  export type NormalizedCategories = {
+    categories: { [key: string]: Category };
   };
 }

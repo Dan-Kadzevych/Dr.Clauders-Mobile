@@ -1,7 +1,7 @@
 import { createAsyncAction } from 'typesafe-actions';
 import { normalize } from 'normalizr';
 
-import { productListSchema, categoryListSchema } from './schemas';
+import { productListSchema, categoryListSchema } from '../schemas';
 import types from './types';
 
 const getProductsAsync = createAsyncAction(
@@ -21,7 +21,7 @@ const getProductsAsync = createAsyncAction(
 )<
   undefined,
   import('normalizr').NormalizedSchema<
-    { products: { [key: string]: import('ProductModels').Product } },
+    import('ProductModels').NormalizedProducts,
     number[]
   >,
   { error: import('ErrorTypes').Error }
@@ -44,7 +44,7 @@ const getCategoriesAsync = createAsyncAction(
 )<
   undefined,
   import('normalizr').NormalizedSchema<
-    { categories: { [key: string]: import('CategoryModels').Category } },
+    import('CategoryModels').NormalizedCategories,
     number[]
   >,
   { error: import('ErrorTypes').Error }

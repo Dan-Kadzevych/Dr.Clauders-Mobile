@@ -20,6 +20,10 @@ declare module 'ProductModels' {
     }[];
     images: {
       id: number;
+      date_created: string;
+      date_created_gmt: string;
+      date_modified: string;
+      date_modified_gmt: string;
       src: string;
       name: string;
       alt: string;
@@ -31,7 +35,7 @@ declare module 'ProductModels' {
     short_description: string;
     stock_quantity: number | null;
     stock_status: 'instock' | 'outofstock' | 'onbackorder';
-    type: 'simple' | 'grouped' | 'external' | 'varialbe';
+    type: 'simple' | 'grouped' | 'external' | 'variable';
     variations: number[];
   };
 

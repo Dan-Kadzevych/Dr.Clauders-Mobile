@@ -13,12 +13,12 @@ type CategoriesState = {
   ids: number[];
 };
 
-type ProductsScreenState = import('utility-types').DeepReadonly<{
+export type ProductsScreenState = import('utility-types').DeepReadonly<{
   products: ProductsState;
   categories: CategoriesState;
 }>;
 
-const initialState: ProductsScreenState = {
+export const initialState: ProductsScreenState = {
   products: {
     byId: {},
     ids: [],
