@@ -20,6 +20,10 @@ declare module 'ProductModels' {
     }[];
     images: {
       id: number;
+      date_created: string;
+      date_created_gmt: string;
+      date_modified: string;
+      date_modified_gmt: string;
       src: string;
       name: string;
       alt: string;
@@ -35,7 +39,11 @@ declare module 'ProductModels' {
     variations: number[];
   };
 
-  export type NormalizedProducts = { products: { [key: string]: Product } };
+  export type ProductList = Product[];
+
+  export type ProductsById = { [key: string]: Product };
+
+  export type NormalizedProducts = { products: ProductsById };
 }
 
 declare module 'CategoryModels' {
@@ -52,7 +60,11 @@ declare module 'CategoryModels' {
     parent: number;
   };
 
+  export type CategoryList = Category[];
+
+  export type CategoriesById = { [key: string]: Category };
+
   export type NormalizedCategories = {
-    categories: { [key: string]: Category };
+    categories: CategoriesById;
   };
 }

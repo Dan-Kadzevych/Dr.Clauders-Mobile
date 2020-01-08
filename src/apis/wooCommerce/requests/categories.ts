@@ -12,6 +12,7 @@ export const fetchCategories = async (params?: import('Woo').Params) => {
     params: {
       _fields: WOO_CATEGORY_FIELDS,
       per_page: WOO_CATEGORY_PER_PAGE,
+      hide_empty: true,
       ...params,
     },
   });

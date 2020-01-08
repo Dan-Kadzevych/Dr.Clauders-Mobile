@@ -4,12 +4,12 @@ import { createReducer } from 'typesafe-actions';
 import types from './types';
 
 type ProductsState = {
-  byId: { [key: string]: import('ProductModels').Product };
+  byId: import('ProductModels').ProductsById;
   ids: number[];
 };
 
 type CategoriesState = {
-  byId: { [key: string]: import('CategoryModels').Category };
+  byId: import('CategoryModels').CategoriesById;
   ids: number[];
 };
 

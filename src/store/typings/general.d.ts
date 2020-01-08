@@ -3,6 +3,6 @@ declare module 'MyTypes' {
     typeof import('../index').default
   >;
   export type RootState = import('typesafe-actions').StateType<
-    ReturnType<typeof import('../reducer').default>
+    typeof import('../reducer').default
   >;
 }

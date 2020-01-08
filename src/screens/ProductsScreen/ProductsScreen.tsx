@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 
@@ -10,8 +10,10 @@ import './duck/reducer';
 const ProductsScreen = () => {
   const dispatch = useDispatch();
 
-  dispatch(productsOperations.getProducts());
-  dispatch(productsOperations.getCategories());
+  useEffect(() => {
+    dispatch(productsOperations.getProducts());
+    dispatch(productsOperations.getCategories());
+  }, [dispatch]);
 
   return (
     <SafeAreaView>
