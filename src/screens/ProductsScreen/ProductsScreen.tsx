@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
-import { Text } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { useDispatch } from 'react-redux';
-import { productsOperations } from './duck';
+import { ProductItem } from 'components';
+import { productsOperations, productsSelectors } from './duck';
 
-import './duck/reducer';
+/* ProductsScreen
+============================================================================= */
 
-const ProductsScreen = () => {
+const ProductsScreen: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,11 +17,44 @@ const ProductsScreen = () => {
     dispatch(productsOperations.getCategories());
   }, [dispatch]);
 
+  const products = useSelector(productsSelectors.getProductsArray);
+
   return (
-    <SafeAreaView>
-      <Text>ProductsScreen</Text>
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        contentContainerStyle={styles.list}
+        data={products}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({ item, index }) => (
+          <ProductItem
+            description={item.short_description}
+            image={item.images[0].src}
+            index={index}
+            name={item.name}
+            price={item.price_range}
+          />
+        )}
+      />
     </SafeAreaView>
   );
 };
+
+/* StyleSheet
+============================================================================= */
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  list: {
+    paddingBottom: 10,
+    paddingLeft: 5,
+    paddingRight: 5,
+    paddingTop: 10,
+  },
+});
+
+/* Export
+============================================================================= */
 
 export default ProductsScreen;

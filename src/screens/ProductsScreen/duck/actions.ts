@@ -3,14 +3,19 @@ import { normalize } from 'normalizr';
 
 import { productListSchema, categoryListSchema } from '../schemas';
 import types from './types';
+import { formatProducts } from './utils';
 
 const getProductsAsync = createAsyncAction(
   types.getProductsRequest,
   [
     types.getProductsSuccess,
-    (products: import('ProductModels').ProductListResponse) => ({
-      ...normalize(products, productListSchema),
-    }),
+    (products: import('ProductModels').ProductListResponse) => {
+      const formattedProducts = formatProducts(products);
+
+      return {
+        ...normalize(formattedProducts, productListSchema),
+      };
+    },
   ],
   [
     types.getProductsFailure,

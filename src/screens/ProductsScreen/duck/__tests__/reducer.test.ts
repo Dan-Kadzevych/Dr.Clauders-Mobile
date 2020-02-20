@@ -18,10 +18,6 @@ describe('Products Reducer', () => {
       entities: { products },
       result,
     } = normalizedProductList;
-    const newState = reducer(
-      undefined,
-      actions.getProductsAsync.success(productListResponse),
-    );
     const expectedState: ProductsScreenState = {
       ...initialState,
       products: {
@@ -29,6 +25,11 @@ describe('Products Reducer', () => {
         ids: result,
       },
     };
+
+    const newState = reducer(
+      undefined,
+      actions.getProductsAsync.success(productListResponse),
+    );
 
     expect(newState).toEqual(expectedState);
   });
