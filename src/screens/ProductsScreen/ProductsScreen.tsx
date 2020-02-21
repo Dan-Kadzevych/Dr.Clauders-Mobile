@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-navigation';
+import SafeAreaView from 'react-native-safe-area-view';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ProductItem } from 'components';
@@ -20,7 +20,7 @@ const ProductsScreen: React.FC = () => {
   const products = useSelector(productsSelectors.getProductsArray);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView>
       <FlatList
         contentContainerStyle={styles.list}
         data={products}
