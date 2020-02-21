@@ -13,6 +13,7 @@ export const WOO_PRODUCT_FIELDS = [
   'stock_status',
   'type',
   'variations',
+  'price_html',
 ];
 export const WOO_PRODUCT_PER_PAGE = 30;
 

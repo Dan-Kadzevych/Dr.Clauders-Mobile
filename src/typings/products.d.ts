@@ -1,5 +1,5 @@
 declare module 'ProductModels' {
-  export type ProductResponse = {
+  export type Product = {
     attributes: {
       id: number;
       name: string;
@@ -18,21 +18,12 @@ declare module 'ProductModels' {
       name: string;
       option: string;
     }[];
-    images: {
-      id: number;
-      date_created: string;
-      date_created_gmt: string;
-      date_modified: string;
-      date_modified_gmt: string;
-      src: string;
-      name: string;
-      alt: string;
-    }[];
+    images: ProductImageList;
     id: number;
     name: string;
     parent_id: number;
     price: string;
-    price_html: string;
+    price_range: string;
     short_description: string;
     stock_quantity: number | null;
     stock_status: 'instock' | 'outofstock' | 'onbackorder';
@@ -40,22 +31,22 @@ declare module 'ProductModels' {
     variations: number[];
   };
 
-  export type ProductListResponse = ProductResponse[];
-}
-
-declare module 'CategoryModels' {
-  export type CategoryResponse = {
-    count: number;
+  type ProductImage = {
     id: number;
-    image: {
-      id: number;
-      name: string;
-      src: string;
-    } | null;
-    menu_order: number;
+    date_created: string;
+    date_created_gmt: string;
+    date_modified: string;
+    date_modified_gmt: string;
+    src: string;
     name: string;
-    parent: number;
+    alt: string;
   };
 
-  export type CategoryListResponse = CategoryResponse[];
+  export type ProductImageList = ProductImage[];
+
+  export type ProductList = Product[];
+
+  export type ProductsById = { [key: string]: Product };
+
+  export type NormalizedProducts = { products: ProductsById };
 }

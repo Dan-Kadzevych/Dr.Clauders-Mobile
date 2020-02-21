@@ -6,7 +6,7 @@ import {
   parentCategories,
 } from '../testData';
 
-describe('Products Selectors', () => {
+describe('Products Screen Selectors', () => {
   const state: import('MyTypes').RootState = {
     productsScreen: productsScreenState,
   };
