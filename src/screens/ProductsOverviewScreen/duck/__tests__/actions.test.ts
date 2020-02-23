@@ -8,7 +8,7 @@ import {
   error,
 } from '../testData';
 
-describe('Products Actions', () => {
+describe('Products Overview Actions', () => {
   describe('Get Products Async', () => {
     test('Get Products Request', () => {
       const action = actions.getProductsAsync.request();

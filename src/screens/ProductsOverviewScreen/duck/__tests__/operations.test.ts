@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import types from '../types';
 import operations from '../operations';
 
-describe('Products Operations', () => {
+describe('Products Overview Operations', () => {
   const mockStore = configureMockStore<
     undefined,
     import('TestTypes').DispatchExts

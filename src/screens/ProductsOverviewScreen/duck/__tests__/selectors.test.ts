@@ -1,14 +1,14 @@
 import productsSelectors from '../selectors';
 import {
-  productsScreenState,
+  productsOverviewState,
   categoryList,
   productList,
   parentCategories,
 } from '../testData';
 
-describe('Products Screen Selectors', () => {
+describe('Products Overview Selectors', () => {
   const state: import('MyTypes').RootState = {
-    productsScreen: productsScreenState,
+    productsOverview: productsOverviewState,
   };
 
   describe('Get Products Selectors', () => {

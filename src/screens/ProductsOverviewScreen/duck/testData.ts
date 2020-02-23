@@ -1,9 +1,6 @@
 import { normalize } from 'normalizr';
 
-import {
-  categoryListSchema,
-  productListSchema,
-} from 'screens/ProductsScreen/schemas';
+import { categoryListSchema, productListSchema } from '../schemas';
 import { formatProducts } from './utils';
 
 export const productResponse: import('ProductModels').ProductResponse = {
@@ -162,7 +159,7 @@ export const error = {
   message: 'Error Message',
 };
 
-export const productsScreenState: import('./reducer').ProductsScreenState = {
+export const productsOverviewState: import('./reducer').ProductsOverviewState = {
   products: {
     byId: normalizedProductList.entities.products,
     ids: normalizedProductList.result,

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1582455007678" clover="3.2.0">
+  <project timestamp="1582455007679" name="All files">
+    <metrics statements="94" coveredstatements="89" conditionals="4" coveredconditionals="2" methods="30" coveredmethods="28" elements="128" coveredelements="119" complexity="0" loc="94" ncloc="94" packages="5" files="14" classes="14"/>
+    <package name="apis.wooCommerce">
+      <metrics statements="14" coveredstatements="13" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <file name="constants.ts" path="/Users/dkadzevych/Desktop/Dr.Caluder's/MobileApp/DrClauders/src/apis/wooCommerce/constants.ts">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+      </file>
+      <file name="wooCommerceApi.ts" path="/Users/dkadzevych/Desktop/Dr.Caluder's/MobileApp/DrClauders/src/apis/wooCommerce/wooCommerceApi.ts">
+        <metrics statements="8" coveredstatements="7" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="10" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="apis.wooCommerce.requests">
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <file name="categories.ts" path="/Users/dkadzevych/Desktop/Dr.Caluder's/MobileApp/DrClauders/src/apis/wooCommerce/requests/categories.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+      </file>
+      <file name="index.ts" path="/Users/dkadzevych/Desktop/Dr.Caluder's/MobileApp/DrClauders/src/apis/wooCommerce/requests/index.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="products.ts" path="/Users/dkadzevych/Desktop/Dr.Caluder's/MobileApp/DrClauders/src/apis/wooCommerce/requests/products.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="components">
+      <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <file name="ProductItem.tsx" path="/Users/dkadzevych/Desktop/Dr.Caluder's/MobileApp/DrClauders/src/components/ProductItem.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="screens.ProductsOverviewScreen">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="schemas.ts" path="/Users/dkadzevych/Desktop/Dr.Caluder's/MobileApp/DrClauders/src/screens/ProductsOverviewScreen/schemas.ts">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="8" count="5" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
+      </file>
+    </package>
+    <package name="screens.ProductsOverviewScreen.duck">
+      <metrics statements="67" coveredstatements="63" conditionals="0" coveredconditionals="0" methods="26" coveredmethods="24"/>
+      <file name="actions.ts" path="/Users/dkadzevych/Desktop/Dr.Caluder's/MobileApp/DrClauders/src/screens/ProductsOverviewScreen/duck/actions.ts">
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+      </file>
+      <file name="operations.ts" path="/Users/dkadzevych/Desktop/Dr.Caluder's/MobileApp/DrClauders/src/screens/ProductsOverviewScreen/duck/operations.ts">
+        <metrics statements="12" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+      </file>
+      <file name="reducer.ts" path="/Users/dkadzevych/Desktop/Dr.Caluder's/MobileApp/DrClauders/src/screens/ProductsOverviewScreen/duck/reducer.ts">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+      </file>
+      <file name="selectors.ts" path="/Users/dkadzevych/Desktop/Dr.Caluder's/MobileApp/DrClauders/src/screens/ProductsOverviewScreen/duck/selectors.ts">
+        <metrics statements="16" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="10" coveredmethods="8"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="33" count="2" type="stmt"/>
+      </file>
+      <file name="testData.ts" path="/Users/dkadzevych/Desktop/Dr.Caluder's/MobileApp/DrClauders/src/screens/ProductsOverviewScreen/duck/testData.ts">
+        <metrics statements="16" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="9" count="4" type="stmt"/>
+        <line num="64" count="4" type="stmt"/>
+        <line num="119" count="4" type="stmt"/>
+        <line num="132" count="4" type="stmt"/>
+        <line num="141" count="4" type="stmt"/>
+        <line num="144" count="4" type="stmt"/>
+        <line num="149" count="4" type="stmt"/>
+        <line num="155" count="4" type="stmt"/>
+        <line num="161" count="4" type="stmt"/>
+        <line num="165" count="4" type="stmt"/>
+        <line num="176" count="4" type="stmt"/>
+        <line num="178" count="8" type="stmt"/>
+        <line num="180" count="4" type="stmt"/>
+        <line num="182" count="4" type="stmt"/>
+        <line num="184" count="4" type="stmt"/>
+        <line num="185" count="8" type="stmt"/>
+      </file>
+      <file name="types.ts" path="/Users/dkadzevych/Desktop/Dr.Caluder's/MobileApp/DrClauders/src/screens/ProductsOverviewScreen/duck/types.ts">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+      </file>
+      <file name="utils.ts" path="/Users/dkadzevych/Desktop/Dr.Caluder's/MobileApp/DrClauders/src/screens/ProductsOverviewScreen/duck/utils.ts">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="71" type="stmt"/>
+        <line num="7" count="5" type="stmt"/>
+        <line num="10" count="8" type="stmt"/>
+        <line num="11" count="35" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import productsReducer from 'screens/ProductsScreen/duck/reducer';
+import productsOverviewReducer from 'screens/ProductsOverviewScreen/duck/reducer';
 
 const rootReducer = combineReducers({
-  productsScreen: productsReducer,
+  productsOverview: productsOverviewReducer,
 });
 
 export default rootReducer;

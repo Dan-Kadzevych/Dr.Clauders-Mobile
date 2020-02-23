@@ -6,10 +6,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ProductItem } from 'components';
 import { productsOperations, productsSelectors } from './duck';
 
+/* Typings
+============================================================================= */
+
+type Props = {
+  navigation: import('NavigatorModels').ProductsNavigationProp;
+};
+
 /* ProductsScreen
 ============================================================================= */
 
-const ProductsScreen: React.FC = () => {
+const ProductsOverviewScreen: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,6 +34,11 @@ const ProductsScreen: React.FC = () => {
         keyExtractor={item => item.id.toString()}
         renderItem={({ item, index }) => (
           <ProductItem
+            handlePress={() =>
+              navigation.navigate('ProductDetails', {
+                productId: item.id,
+              })
+            }
             description={item.short_description}
             image={item.images[0].src}
             index={index}
@@ -57,4 +69,4 @@ const styles = StyleSheet.create({
 /* Export
 ============================================================================= */
 
-export default ProductsScreen;
+export default ProductsOverviewScreen;

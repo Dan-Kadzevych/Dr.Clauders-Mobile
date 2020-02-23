@@ -15,6 +15,7 @@ type Props = {
   image: string;
   index: number;
   name: string;
+  handlePress: () => void;
   price: string;
 };
 
@@ -26,9 +27,10 @@ const ProductItem: React.FC<Props> = ({
   image,
   index,
   name,
+  handlePress,
   price,
 }) => (
-  <TouchableWithoutFeedback>
+  <TouchableWithoutFeedback onPress={handlePress}>
     <View style={[styles.container, index > 0 && styles.marginT5]}>
       <Image source={{ uri: image }} style={styles.image} />
       <View style={styles.details}>

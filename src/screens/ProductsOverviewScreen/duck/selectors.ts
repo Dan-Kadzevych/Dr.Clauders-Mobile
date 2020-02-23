@@ -7,16 +7,16 @@ const emptyArr = [] as const;
 export const getProductsById = (
   state: import('MyTypes').RootState,
 ): import('ProductModels').ProductsById =>
-  get(state, 'productsScreen.products.byId', emptyObj);
+  get(state, 'productsOverview.products.byId', emptyObj);
 export const getProductsIds = (state: import('MyTypes').RootState): number[] =>
-  get(state, 'productsScreen.products.ids', emptyArr);
+  get(state, 'productsOverview.products.ids', emptyArr);
 export const getCategoriesById = (
   state: import('MyTypes').RootState,
 ): import('CategoryModels').CategoriesById =>
-  get(state, 'productsScreen.categories.byId', emptyObj);
+  get(state, 'productsOverview.categories.byId', emptyObj);
 export const getCategoriesIds = (
   state: import('MyTypes').RootState,
-): number[] => get(state, 'productsScreen.categories.ids', emptyArr);
+): number[] => get(state, 'productsOverview.categories.ids', emptyArr);
 
 export const getProductsArray = createSelector(
   getProductsById,
