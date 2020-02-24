@@ -1,34 +1,34 @@
 declare module 'ProductModels' {
   export type Product = {
-    attributes: {
-      id: number;
-      name: string;
-      position: number;
-      visible: boolean;
-      variation: boolean;
-      options: string[];
-    }[];
-    categories: {
-      id: number;
-      name: string;
-      slug: string;
-    }[];
-    default_attributes: {
-      id: number;
-      name: string;
-      option: string;
-    }[];
+    // attributes: {
+    //   id: number;
+    //   name: string;
+    //   position: number;
+    //   visible: boolean;
+    //   variation: boolean;
+    //   options: string[];
+    // }[];
+    // categories: {
+    //   id: number;
+    //   name: string;
+    //   slug: string;
+    // }[];
+    // default_attributes: {
+    //   id: number;
+    //   name: string;
+    //   option: string;
+    // }[];
     images: ProductImageList;
     id: number;
     name: string;
-    parent_id: number;
-    price: string;
+    // parent_id: number;
+    // price: string;
     price_range: string;
     short_description: string;
-    stock_quantity: number | null;
+    // stock_quantity: number | null;
     stock_status: 'instock' | 'outofstock' | 'onbackorder';
-    type: 'simple' | 'grouped' | 'external' | 'variable';
-    variations: number[];
+    // type: 'simple' | 'grouped' | 'external' | 'variable';
+    // variations: number[];
   };
 
   type ProductImage = {

@@ -1,6 +1,6 @@
 import reducer from './reducer';
 
-export { default as productsOperations } from './operations';
-export { default as productsSelectors } from './selectors';
+export { default as productsOverviewOperations } from './operations';
+export { default as productsOverviewSelectors } from './selectors';
 
 export default reducer;

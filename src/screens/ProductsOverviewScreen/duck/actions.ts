@@ -1,9 +1,9 @@
 import { createAsyncAction } from 'typesafe-actions';
 import { normalize } from 'normalizr';
 
+import { formatProducts } from 'utils/product';
 import { productListSchema, categoryListSchema } from '../schemas';
 import types from './types';
-import { formatProducts } from './utils';
 
 const getProductsAsync = createAsyncAction(
   types.getProductsRequest,

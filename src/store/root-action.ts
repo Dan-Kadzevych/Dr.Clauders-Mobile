@@ -1,5 +1,7 @@
-import productsActions from 'screens/ProductsOverviewScreen/duck/actions';
+import productsOverviewActions from 'screens/ProductsOverviewScreen/duck/actions';
+import productDetailsActions from 'screens/ProductDetailsScreen/duck/actions';
 
 export default {
-  productsScreen: productsActions,
+  productsOverviewScreen: productsOverviewActions,
+  productDetailsScreen: productDetailsActions,
 };

@@ -1,31 +1,15 @@
 import { normalize } from 'normalizr';
 
+import { formatProducts } from 'utils/product';
 import { categoryListSchema, productListSchema } from '../schemas';
-import { formatProducts } from './utils';
 
 export const productResponse: import('ProductModels').ProductResponse = {
   id: 745,
   name: 'Kittenmilch +',
-  type: 'variable',
   short_description: '<p>Сухое молоко для вскармливания котят</p>\n',
-  price: '310',
   price_html:
     '<span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#8372;</span>310.00</span> &ndash; <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#8372;</span>1,600.00</span>',
-  stock_quantity: null,
   stock_status: 'outofstock',
-  parent_id: 0,
-  categories: [
-    {
-      id: 44,
-      name: 'Pro Life - Активность на всех этапах жизни',
-      slug: 'cats-pro-life',
-    },
-    {
-      id: 17,
-      name: 'Кошки',
-      slug: 'cats',
-    },
-  ],
   images: [
     {
       id: 861,
@@ -39,47 +23,17 @@ export const productResponse: import('ProductModels').ProductResponse = {
       alt: '',
     },
   ],
-  attributes: [
-    {
-      id: 0,
-      name: 'выбор-размера-упаковки',
-      position: 0,
-      visible: true,
-      variation: true,
-      options: ['200г', '2.5кг'],
-    },
-  ],
-  default_attributes: [
-    {
-      id: 0,
-      name: 'выбор-размера-упаковки',
-      option: '200г',
-    },
-  ],
-  variations: [748, 749],
 };
 export const product: import('ProductModels').Product = {
   id: 745,
   name: 'Kittenmilch +',
-  type: 'variable',
+
   short_description: 'Сухое молоко для вскармливания котят',
-  price: '310',
+
   price_range: '₴310.00 – ₴1,600.00',
-  stock_quantity: null,
+
   stock_status: 'outofstock',
-  parent_id: 0,
-  categories: [
-    {
-      id: 44,
-      name: 'Pro Life - Активность на всех этапах жизни',
-      slug: 'cats-pro-life',
-    },
-    {
-      id: 17,
-      name: 'Кошки',
-      slug: 'cats',
-    },
-  ],
+
   images: [
     {
       id: 861,
@@ -93,24 +47,6 @@ export const product: import('ProductModels').Product = {
       alt: '',
     },
   ],
-  attributes: [
-    {
-      id: 0,
-      name: 'выбор-размера-упаковки',
-      position: 0,
-      visible: true,
-      variation: true,
-      options: ['200г', '2.5кг'],
-    },
-  ],
-  default_attributes: [
-    {
-      id: 0,
-      name: 'выбор-размера-упаковки',
-      option: '200г',
-    },
-  ],
-  variations: [748, 749],
 };
 
 const categoryResponse1: import('CategoryModels').CategoryResponse = {

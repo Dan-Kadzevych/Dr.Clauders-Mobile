@@ -4,7 +4,7 @@ import SafeAreaView from 'react-native-safe-area-view';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ProductItem } from 'components';
-import { productsOperations, productsSelectors } from './duck';
+import { productsOverviewOperations, productsOverviewSelectors } from './duck';
 
 /* Typings
 ============================================================================= */
@@ -20,11 +20,11 @@ const ProductsOverviewScreen: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(productsOperations.getProducts());
-    dispatch(productsOperations.getCategories());
+    dispatch(productsOverviewOperations.getProducts());
+    // dispatch(productsOperations.getCategories());
   }, [dispatch]);
 
-  const products = useSelector(productsSelectors.getProductsArray);
+  const products = useSelector(productsOverviewSelectors.getProductsArray);
 
   return (
     <SafeAreaView>
