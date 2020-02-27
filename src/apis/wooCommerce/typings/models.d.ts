@@ -1,25 +1,10 @@
 declare module 'ProductModels' {
-  type stockStatus = 'instock' | 'outofstock' | 'onbackorder';
+  type StockStatus = 'instock' | 'outofstock' | 'onbackorder';
 
-  export type ProductResponse = {
-    // attributes: {
-    //   id: number;
-    //   name: string;
-    //   position: number;
-    //   visible: boolean;
-    //   variation: boolean;
-    //   options: string[];
-    // }[];
-    // categories: {
-    //   id: number;
-    //   name: string;
-    //   slug: string;
-    // }[];
-    // default_attributes: {
-    //   id: number;
-    //   name: string;
-    //   option: string;
-    // }[];
+  /* Product Overview Typings
+  ============================================================================= */
+
+  export type ProductOverviewResponse = {
     id: number;
     images: {
       id: number;
@@ -32,28 +17,38 @@ declare module 'ProductModels' {
       alt: string;
     }[];
     name: string;
-    // parent_id: number;
-    // price: string;
     price_html: string;
     short_description: string;
-    // stock_quantity: number | null;
-    stock_status: stockStatus;
-    _links?: { self: { href: string }[]; collection: { href: string }[] };
-    // type: 'simple' | 'grouped' | 'external' | 'variable';
-    // variations: number[];
+    stock_status: StockStatus;
+    type: 'simple' | 'grouped' | 'external' | 'variable';
   };
 
-  export type ProductListResponse = ProductResponse[];
+  export type ProductOverviewListResponse = ProductOverviewResponse[];
+
+  /* Product Details Typings
+============================================================================= */
+
+  export type ProductDetailsResponse = ProductOverviewResponse & {
+    meta_data: {
+      id: number;
+      key: 'string';
+      value: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+    }[];
+    _links: { self: { href: string }[]; collection: { href: string }[] };
+  };
+
+  /* Product Variation Typings
+============================================================================= */
 
   export type ProductVariationResponse = {
     attributes: { id: number; name: string; option: string }[];
     id: number;
     menu_order: number;
     price: string;
-    stock_status: stockStatus;
+    stock_status: StockStatus;
   };
 
-  export type ProductVariationsResponse = ProductVariationResponse[];
+  export type ProductVariationListResponse = ProductVariationResponse[];
 }
 
 declare module 'CategoryModels' {

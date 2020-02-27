@@ -2,19 +2,19 @@ import productsSelectors from '../selectors';
 import {
   productsOverviewState,
   categoryList,
-  productList,
+  productOverviewList,
   parentCategories,
 } from '../testData';
 
 describe('Products Overview Selectors', () => {
   const state: import('MyTypes').RootState = {
     productsOverview: productsOverviewState,
-  };
+  } as import('MyTypes').RootState;
 
   describe('Get Products Selectors', () => {
     test('getProductsArray', () => {
       const selectorData = productsSelectors.getProductsArray(state);
-      expect(selectorData).toEqual(productList);
+      expect(selectorData).toEqual(productOverviewList);
     });
   });
 

@@ -1,7 +1,7 @@
 import actions from '../actions';
 import types from '../types';
 import {
-  productListResponse,
+  productOverviewListResponse,
   normalizedProductList,
   categoryListResponse,
   normalizedCategoryList,
@@ -19,7 +19,9 @@ describe('Products Overview Actions', () => {
       expect(action).toEqual(expectedAction);
     });
     test('Get Products Success', () => {
-      const action = actions.getProductsAsync.success(productListResponse);
+      const action = actions.getProductsAsync.success(
+        productOverviewListResponse,
+      );
       const expectedAction = {
         type: types.getProductsSuccess,
         payload: normalizedProductList,

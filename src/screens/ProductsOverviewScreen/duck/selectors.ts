@@ -1,22 +1,16 @@
 import { createSelector } from 'reselect';
 import { get } from 'lodash';
 
-const emptyObj = {} as const;
-const emptyArr = [] as const;
+import { emptyObj } from 'utils/constants';
 
 export const getProductsById = (
   state: import('MyTypes').RootState,
-): import('ProductModels').ProductsById =>
+): import('ProductModels').ProductsOverviewById =>
   get(state, 'productsOverview.products.byId', emptyObj);
-export const getProductsIds = (state: import('MyTypes').RootState): number[] =>
-  get(state, 'productsOverview.products.ids', emptyArr);
 export const getCategoriesById = (
   state: import('MyTypes').RootState,
 ): import('CategoryModels').CategoriesById =>
   get(state, 'productsOverview.categories.byId', emptyObj);
-export const getCategoriesIds = (
-  state: import('MyTypes').RootState,
-): number[] => get(state, 'productsOverview.categories.ids', emptyArr);
 
 export const getProductsArray = createSelector(
   getProductsById,
@@ -34,10 +28,6 @@ export const getParentCategories = createSelector(
 );
 
 export default {
-  getProductsById,
-  getProductsIds,
-  getCategoriesById,
-  getCategoriesIds,
   getProductsArray,
   getCategoriesArray,
   getParentCategories,

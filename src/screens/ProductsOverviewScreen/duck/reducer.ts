@@ -4,7 +4,7 @@ import { createReducer } from 'typesafe-actions';
 import types from './types';
 
 type ProductsState = {
-  byId: import('ProductModels').ProductsById;
+  byId: import('ProductModels').ProductsOverviewById;
   ids: number[];
 };
 

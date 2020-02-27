@@ -1,36 +1,4 @@
 declare module 'ProductModels' {
-  export type Product = {
-    // attributes: {
-    //   id: number;
-    //   name: string;
-    //   position: number;
-    //   visible: boolean;
-    //   variation: boolean;
-    //   options: string[];
-    // }[];
-    // categories: {
-    //   id: number;
-    //   name: string;
-    //   slug: string;
-    // }[];
-    // default_attributes: {
-    //   id: number;
-    //   name: string;
-    //   option: string;
-    // }[];
-    images: ProductImageList;
-    id: number;
-    name: string;
-    // parent_id: number;
-    // price: string;
-    price_range: string;
-    short_description: string;
-    // stock_quantity: number | null;
-    stock_status: 'instock' | 'outofstock' | 'onbackorder';
-    // type: 'simple' | 'grouped' | 'external' | 'variable';
-    // variations: number[];
-  };
-
   type ProductImage = {
     id: number;
     date_created: string;
@@ -44,9 +12,54 @@ declare module 'ProductModels' {
 
   export type ProductImageList = ProductImage[];
 
-  export type ProductList = Product[];
+  /* Product Overview Typings
+============================================================================= */
 
-  export type ProductsById = { [key: string]: Product };
+  export type ProductOverview = {
+    images: ProductImageList;
+    id: number;
+    name: string;
+    price_range: string;
+    short_description: string;
+    stock_status: StockStatus;
+    type: 'simple' | 'grouped' | 'external' | 'variable';
+  };
 
-  export type NormalizedProducts = { products: ProductsById };
+  export type ProductOverviewList = ProductOverview[];
+
+  export type ProductsOverviewById = { [key: string]: ProductOverview };
+
+  export type NormalizedProductsOverview = { products: ProductsOverviewById };
+
+  /* Product Details Typings
+============================================================================= */
+
+  export type ProductDetails = ProductOverview & {
+    meta_data: {
+      id: number;
+      key: string;
+      value: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+    }[];
+  };
+
+  export type ProductDetailsById = { [key: string]: ProductDetails };
+
+  export type NormalizedProductDetails = { product: ProductDetailsById };
+
+  /* Product Variation Typings
+============================================================================= */
+
+  type ProductVariation = {
+    attributes: { id: number; name: string; option: string }[];
+    id: number;
+    menu_order: number;
+    price: string;
+    stock_status: StockStatus;
+  };
+
+  export type ProductVariationsById = { [key: string]: ProductVariation };
+
+  export type NormalizedProductVariations = {
+    variations: ProductVariationsById;
+  };
 }

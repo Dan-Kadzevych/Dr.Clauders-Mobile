@@ -1,11 +1,12 @@
 import { normalize } from 'normalizr';
 
-import { formatProducts } from 'utils/product';
+import { formatProductsOverview } from './utils';
 import { categoryListSchema, productListSchema } from '../schemas';
 
-export const productResponse: import('ProductModels').ProductResponse = {
+export const productOverviewResponse: import('ProductModels').ProductOverviewResponse = {
   id: 745,
   name: 'Kittenmilch +',
+  type: 'variable',
   short_description: '<p>Сухое молоко для вскармливания котят</p>\n',
   price_html:
     '<span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#8372;</span>310.00</span> &ndash; <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#8372;</span>1,600.00</span>',
@@ -24,7 +25,7 @@ export const productResponse: import('ProductModels').ProductResponse = {
     },
   ],
 };
-export const product: import('ProductModels').Product = {
+export const productOverview: import('ProductModels').ProductOverview = {
   id: 745,
   name: 'Kittenmilch +',
 
@@ -33,7 +34,7 @@ export const product: import('ProductModels').Product = {
   price_range: '₴310.00 – ₴1,600.00',
 
   stock_status: 'outofstock',
-
+  type: 'variable',
   images: [
     {
       id: 861,
@@ -71,8 +72,8 @@ const categoryResponse2: import('CategoryModels').CategoryResponse = {
   count: 2,
 };
 
-export const productListResponse: import('ProductModels').ProductListResponse = [
-  productResponse,
+export const productOverviewListResponse: import('ProductModels').ProductOverviewListResponse = [
+  productOverviewResponse,
 ];
 export const categoryListResponse: import('CategoryModels').CategoryListResponse = [
   categoryResponse1,
@@ -80,10 +81,10 @@ export const categoryListResponse: import('CategoryModels').CategoryListResponse
 ];
 
 export const normalizedProductList = normalize<
-  import('ProductModels').Product,
-  import('ProductModels').NormalizedProducts,
+  import('ProductModels').ProductOverview,
+  import('ProductModels').NormalizedProductsOverview,
   number[]
->(formatProducts(productListResponse), productListSchema);
+>(formatProductsOverview(productOverviewListResponse), productListSchema);
 
 export const normalizedCategoryList = normalize<
   import('CategoryModels').Category,
@@ -110,7 +111,7 @@ export const categoryList: import('CategoryModels').CategoryList = Object.keys(
   normalizedCategoryList.entities.categories,
 ).map(key => normalizedCategoryList.entities.categories[key]);
 
-export const productList: import('ProductModels').ProductList = Object.keys(
+export const productOverviewList: import('ProductModels').ProductOverviewList = Object.keys(
   normalizedProductList.entities.products,
 ).map(key => normalizedProductList.entities.products[key]);
 

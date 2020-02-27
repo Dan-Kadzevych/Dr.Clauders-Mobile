@@ -2,10 +2,13 @@ import React from 'react';
 import {
   Image,
   StyleSheet,
-  Text,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+
+import { Text } from 'components';
+import { Colors } from 'styles';
+import { normalize } from 'utils/styles';
 
 /* Typings
 ============================================================================= */
@@ -29,13 +32,13 @@ const ProductItem: React.FC<Props> = ({
   name,
   handlePress,
   price,
-}) => (
+}): React.ReactElement => (
   <TouchableWithoutFeedback onPress={handlePress}>
     <View style={[styles.container, index > 0 && styles.marginT5]}>
       <Image source={{ uri: image }} style={styles.image} />
       <View style={styles.details}>
         <Text style={styles.name}>{name}</Text>
-        <Text>{description}</Text>
+        <Text style={styles.description}>{description}</Text>
         <Text style={styles.price}>{price}</Text>
       </View>
     </View>
@@ -48,37 +51,41 @@ const ProductItem: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
     borderRadius: 10,
     flex: 1,
     flexDirection: 'row',
     height: 150,
     justifyContent: 'space-between',
     paddingRight: '2%',
-    shadowColor: '#000',
+    shadowColor: Colors.black,
     shadowOffset: { height: 0, width: 0 },
     shadowOpacity: 0.25,
     shadowRadius: 2,
   },
   details: {
-    height: '70%',
     justifyContent: 'space-between',
     width: '68%',
   },
   image: {
     height: '80%',
-    resizeMode: 'contain',
     width: '30%',
   },
   marginT5: {
     marginTop: 10,
   },
   name: {
-    fontSize: 15,
+    color: Colors.primary,
+    fontSize: normalize(16),
     fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  description: {
+    fontSize: normalize(14),
+    marginBottom: 10,
   },
   price: {
-    fontSize: 18,
+    fontSize: normalize(18),
     fontWeight: 'bold',
   },
 });

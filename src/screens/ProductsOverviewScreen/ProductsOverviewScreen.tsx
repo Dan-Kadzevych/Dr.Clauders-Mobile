@@ -19,12 +19,12 @@ type Props = {
 const ProductsOverviewScreen: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
 
+  const products = useSelector(productsOverviewSelectors.getProductsArray);
+
   useEffect(() => {
     dispatch(productsOverviewOperations.getProducts());
     // dispatch(productsOperations.getCategories());
   }, [dispatch]);
-
-  const products = useSelector(productsOverviewSelectors.getProductsArray);
 
   return (
     <SafeAreaView>

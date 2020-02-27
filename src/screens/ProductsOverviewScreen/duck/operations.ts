@@ -7,9 +7,9 @@ export const getProducts = () => async (
   try {
     dispatch(actions.getProductsAsync.request());
 
-    const response = await fetchProducts();
+    const { data } = await fetchProducts();
 
-    dispatch(actions.getProductsAsync.success(response.data));
+    dispatch(actions.getProductsAsync.success(data));
   } catch (e) {
     dispatch(actions.getProductsAsync.failure(e));
   }
@@ -21,9 +21,9 @@ export const getCategories = () => async (
   try {
     dispatch(actions.getCategoriesAsync.request());
 
-    const response = await fetchCategories();
+    const { data } = await fetchCategories();
 
-    dispatch(actions.getCategoriesAsync.success(response.data));
+    dispatch(actions.getCategoriesAsync.success(data));
   } catch (e) {
     dispatch(actions.getCategoriesAsync.failure(e));
   }

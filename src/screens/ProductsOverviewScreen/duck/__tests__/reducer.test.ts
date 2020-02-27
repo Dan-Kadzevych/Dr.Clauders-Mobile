@@ -1,7 +1,7 @@
 import reducer, { initialState, ProductsOverviewState } from '../reducer';
 import actions from '../actions';
 import {
-  productListResponse,
+  productOverviewListResponse,
   normalizedProductList,
   categoryListResponse,
   normalizedCategoryList,
@@ -28,7 +28,7 @@ describe('Products Overview Reducer', () => {
 
     const newState = reducer(
       undefined,
-      actions.getProductsAsync.success(productListResponse),
+      actions.getProductsAsync.success(productOverviewListResponse),
     );
 
     expect(newState).toEqual(expectedState);

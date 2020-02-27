@@ -1,7 +1,7 @@
 /* Product Constants
 ============================================================================= */
 
-export const WOO_PRODUCT_FIELDS = [
+export const WOO_PRODUCT_OVERVIEW_FIELDS = [
   // 'attributes',
   // 'categories',
   // 'default_attributes',
@@ -13,10 +13,15 @@ export const WOO_PRODUCT_FIELDS = [
   'price_html',
   'short_description',
   'stock_status',
-  // 'type',
+  'type',
   // 'variations',
 ];
 export const WOO_PRODUCT_PER_PAGE = 30;
+
+export const WOO_PRODUCT_DETAILS_FIELDS = [
+  ...WOO_PRODUCT_OVERVIEW_FIELDS,
+  'meta_data',
+];
 
 /* Product Variation Constants
 ============================================================================= */
