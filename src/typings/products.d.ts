@@ -1,4 +1,23 @@
 declare module 'ProductModels' {
+  type Attribute = {
+    id: number;
+    name: string;
+    position: number;
+    visible: boolean;
+    variation: boolean;
+    options: string[];
+  };
+
+  type AttributeList = Attribute[];
+
+  type DefaultAttribute = {
+    id: number;
+    name: string;
+    option: string;
+  };
+
+  export type DefaultAttributeList = DefaultAttribute[];
+
   type ProductImage = {
     id: number;
     date_created: string;
@@ -35,11 +54,14 @@ declare module 'ProductModels' {
 ============================================================================= */
 
   export type ProductDetails = ProductOverview & {
+    attributes: AttributeList;
+    default_attributes: DefaultAttributeList;
     meta_data: {
       id: number;
       key: string;
       value: any; // eslint-disable-line @typescript-eslint/no-explicit-any
     }[];
+    variations: number[];
   };
 
   export type ProductDetailsById = { [key: string]: ProductDetails };
@@ -50,7 +72,7 @@ declare module 'ProductModels' {
 ============================================================================= */
 
   type ProductVariation = {
-    attributes: { id: number; name: string; option: string }[];
+    attributes: DefaultAttributeList;
     id: number;
     menu_order: number;
     price: string;

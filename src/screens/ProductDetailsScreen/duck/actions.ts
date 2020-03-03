@@ -3,7 +3,7 @@ import { normalize } from 'normalizr';
 
 import { formatProductDetails } from './utils';
 import types from './types';
-import { productSchema, productVariationListSchema } from '../schema';
+import { productSchema, productVariationListSchema } from '../schemas';
 
 const getProductDetailsAsync = createAsyncAction(
   types.getProductDetailsRequest,

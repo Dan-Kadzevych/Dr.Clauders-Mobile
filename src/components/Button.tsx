@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import Color from 'color';
 
 import { Colors } from 'styles';
 import { Text } from './Typography';
@@ -10,14 +11,19 @@ import { Text } from './Typography';
 type Props = {
   onPress: () => void;
   title: string;
+  disabled?: boolean;
 };
 
 /* Button
 ============================================================================= */
 
-const Button: React.FC<Props> = ({ title, onPress }): React.ReactElement => (
-  <TouchableOpacity onPress={onPress}>
-    <View style={styles.button}>
+const Button: React.FC<Props> = ({
+  title,
+  onPress,
+  disabled,
+}): React.ReactElement => (
+  <TouchableOpacity disabled={disabled} onPress={onPress}>
+    <View style={[styles.button, disabled && styles.disabled]}>
       <Text style={styles.title}>{title}</Text>
     </View>
   </TouchableOpacity>
@@ -29,7 +35,7 @@ const Button: React.FC<Props> = ({ title, onPress }): React.ReactElement => (
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
-    backgroundColor: '#f96d0c',
+    backgroundColor: Colors.secondary,
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 13,
@@ -42,6 +48,11 @@ const styles = StyleSheet.create({
     paddingTop: 2,
     textAlign: 'center',
     textTransform: 'uppercase',
+  },
+  disabled: {
+    backgroundColor: Color(Colors.secondary)
+      .lighten(0.7)
+      .string(),
   },
 });
 

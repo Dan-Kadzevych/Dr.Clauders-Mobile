@@ -29,11 +29,25 @@ declare module 'ProductModels' {
 ============================================================================= */
 
   export type ProductDetailsResponse = ProductOverviewResponse & {
+    attributes: {
+      id: number;
+      name: string;
+      position: number;
+      visible: boolean;
+      variation: boolean;
+      options: string[];
+    }[];
+    default_attributes: {
+      id: number;
+      name: string;
+      option: string;
+    }[];
     meta_data: {
       id: number;
       key: 'string';
       value: any; // eslint-disable-line @typescript-eslint/no-explicit-any
     }[];
+    variations: number[];
     _links: { self: { href: string }[]; collection: { href: string }[] };
   };
 

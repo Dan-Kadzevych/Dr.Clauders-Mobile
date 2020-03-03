@@ -1,1 +1,2 @@
-export const emptyObj = {} as const;
+export const emptyObj = {};
+export const emptyArr = [];
