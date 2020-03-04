@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-community/async-storage';
+
 import {
   fetchProductById,
   fetchProductVariations,
@@ -32,4 +34,34 @@ export const getProductVariations = (id: number) => async (
   }
 };
 
-export default { getProductDetails, getProductVariations } as const;
+// TODO refactor!
+export const addToCart = (product: { id: string; quantity: string }) => async (
+  dispatch: import('redux').Dispatch,
+): Promise<void> => {
+  try {
+    dispatch(actions.addToCartAsync.request());
+
+    const formattedData = { items: { [product.id]: product.quantity } };
+
+    const cartJson = await AsyncStorage.getItem('cart');
+
+    if (cartJson) {
+      const cart = JSON.parse(cartJson);
+      const qtyInCart = cart.items[product.id];
+
+      if (qtyInCart || qtyInCart === 0) {
+        formattedData.items[product.id] = String(
+          Number(formattedData.items[product.id]) + Number(qtyInCart),
+        );
+      }
+    }
+
+    await AsyncStorage.mergeItem('cart', JSON.stringify(formattedData));
+
+    dispatch(actions.addToCartAsync.success(formattedData));
+  } catch (e) {
+    dispatch(actions.addToCartAsync.failure(e));
+  }
+};
+
+export default { addToCart, getProductDetails, getProductVariations } as const;

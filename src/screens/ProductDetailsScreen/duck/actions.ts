@@ -52,4 +52,26 @@ const getProductVariationsAsync = createAsyncAction(
   { error: import('ErrorTypes').Error }
 >();
 
-export default { getProductDetailsAsync, getProductVariationsAsync } as const;
+const addToCartAsync = createAsyncAction(
+  types.addToCartRequest,
+  [
+    types.addToCartSuccess,
+    (cartData: { items: { [key: string]: string } }) => cartData,
+  ],
+  [
+    types.addToCartFailure,
+    (error: import('ErrorTypes').Error) => ({
+      error,
+    }),
+  ],
+)<
+  undefined,
+  { items: { [key: string]: string } },
+  { error: import('ErrorTypes').Error }
+>();
+
+export default {
+  addToCartAsync,
+  getProductDetailsAsync,
+  getProductVariationsAsync,
+} as const;

@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 
 import { Button, Picker, Text } from 'components';
 import { Colors } from 'styles';
 import { normalize } from 'utils/styles';
 import { QTY_OPTIONS } from '../duck/constants';
+import { addToCart } from '../duck/operations';
 
 /* Typings
 ============================================================================= */
@@ -23,55 +25,59 @@ const AddToBagForm: React.FC<Props> = ({
   defaultPackageSizeValue,
   packageSizeOptions,
   variations,
-}) => (
-  <Formik
-    initialValues={{
-      packageSize: defaultPackageSizeValue,
-      quantity: '1',
-    }}
-    onSubmit={() => {
-      Promise.resolve();
-    }}
-  >
-    {({ values, handleSubmit }) => {
-      const activePackageSizeVariation = variations[values.packageSize];
+}) => {
+  const dispatch = useDispatch();
 
-      return (
-        <View style={styles.variationForm}>
-          <View style={styles.formRow}>
-            <Picker
-              name="packageSize"
-              items={packageSizeOptions}
-              placeholder={{
-                label: 'РАЗМЕР УПАКОВКИ',
-                value: '',
-              }}
-            />
-            <View style={styles.separator} />
-            <Picker
-              name="quantity"
-              items={QTY_OPTIONS}
-              placeholder={{}}
-              prefix="КОЛ-ВО:"
-            />
+  return (
+    <Formik
+      initialValues={{
+        packageSize: defaultPackageSizeValue,
+        quantity: '1',
+      }}
+      onSubmit={async ({ packageSize: id, quantity }) =>
+        dispatch(addToCart({ id, quantity }))
+      }
+    >
+      {({ values, handleSubmit, isSubmitting }) => {
+        const activePackageSizeVariation = variations[values.packageSize];
+
+        return (
+          <View style={styles.variationForm}>
+            <View style={styles.formRow}>
+              <Picker
+                name="packageSize"
+                items={packageSizeOptions}
+                placeholder={{
+                  label: 'РАЗМЕР УПАКОВКИ',
+                  value: '',
+                }}
+              />
+              <View style={styles.separator} />
+              <Picker
+                name="quantity"
+                items={QTY_OPTIONS}
+                placeholder={{}}
+                prefix="КОЛ-ВО:"
+              />
+            </View>
+            <View style={styles.addToBagContainer}>
+              {activePackageSizeVariation && (
+                <Text style={styles.finalPrice}>
+                  {`₴${activePackageSizeVariation.price}`}
+                </Text>
+              )}
+              <Button
+                disabled={!activePackageSizeVariation || isSubmitting}
+                title="В Корзину"
+                onPress={handleSubmit}
+              />
+            </View>
           </View>
-          <View style={styles.addToBagContainer}>
-            {activePackageSizeVariation && (
-              <Text style={styles.finalPrice}>
-                {`₴${activePackageSizeVariation.price}`}
-              </Text>
-            )}
-            <Button
-              disabled={!activePackageSizeVariation}
-              title="В Корзину"
-              onPress={handleSubmit}
-            />
-          </View>
-        </View>
-      );
-    }}
-  </Formik>
-);
+        );
+      }}
+    </Formik>
+  );
+};
 
 const styles = StyleSheet.create({
   variationForm: {
