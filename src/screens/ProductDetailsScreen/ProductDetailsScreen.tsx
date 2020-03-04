@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty';
 
 import { Text } from 'components';
 import { Colors } from 'styles';
-import { AddToBagForm, Info } from './components/index';
+import { AddToBagForm, Info } from './components';
 import { productDetailsOperations, productDetailsSelectors } from './duck';
 import { getProductSubtitle } from './duck/utils';
 

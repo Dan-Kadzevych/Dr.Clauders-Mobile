@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, TextInput } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 
 import { Button, Picker, Text } from 'components';
-import { styles as pickerStyles } from 'components/Form/Picker';
 import { Colors } from 'styles';
 import { normalize } from 'utils/styles';
 import { QTY_OPTIONS } from '../duck/constants';
@@ -49,13 +48,12 @@ const AddToBagForm: React.FC<Props> = ({
               }}
             />
             <View style={styles.separator} />
-            <Picker name="quantity" items={QTY_OPTIONS} placeholder={{}}>
-              <TextInput
-                style={[pickerStyles.inputIOS, pickerStyles.placeholder]}
-                value={`КОЛ-ВО: ${values.quantity}`}
-                editable={false}
-              />
-            </Picker>
+            <Picker
+              name="quantity"
+              items={QTY_OPTIONS}
+              placeholder={{}}
+              prefix="КОЛ-ВО:"
+            />
           </View>
           <View style={styles.addToBagContainer}>
             {activePackageSizeVariation && (
