@@ -54,10 +54,7 @@ const getProductVariationsAsync = createAsyncAction(
 
 const addToCartAsync = createAsyncAction(
   types.addToCartRequest,
-  [
-    types.addToCartSuccess,
-    (cartData: { items: { [key: string]: string } }) => cartData,
-  ],
+  [types.addToCartSuccess, (cartData: import('Cart').CartStorage) => cartData],
   [
     types.addToCartFailure,
     (error: import('ErrorTypes').Error) => ({
@@ -66,7 +63,7 @@ const addToCartAsync = createAsyncAction(
   ],
 )<
   undefined,
-  { items: { [key: string]: string } },
+  import('Cart').CartStorage,
   { error: import('ErrorTypes').Error }
 >();
 

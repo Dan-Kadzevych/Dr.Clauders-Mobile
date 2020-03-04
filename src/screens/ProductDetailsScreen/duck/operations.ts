@@ -41,15 +41,17 @@ export const addToCart = (product: { id: string; quantity: string }) => async (
   try {
     dispatch(actions.addToCartAsync.request());
 
-    const formattedData = { items: { [product.id]: product.quantity } };
+    const formattedData: import('Cart').CartStorage = {
+      items: { [product.id]: product.quantity },
+    };
 
     const cartJson = await AsyncStorage.getItem('cart');
 
     if (cartJson) {
-      const cart = JSON.parse(cartJson);
+      const cart: import('Cart').CartStorage = JSON.parse(cartJson);
       const qtyInCart = cart.items[product.id];
 
-      if (qtyInCart || qtyInCart === 0) {
+      if (qtyInCart) {
         formattedData.items[product.id] = String(
           Number(formattedData.items[product.id]) + Number(qtyInCart),
         );
