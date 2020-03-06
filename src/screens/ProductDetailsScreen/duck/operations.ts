@@ -35,26 +35,25 @@ export const getProductVariations = (id: number) => async (
 };
 
 // TODO refactor!
-export const addToCart = (product: { id: string; quantity: string }) => async (
+export const addToCart = (product: import('Cart').CartProduct) => async (
   dispatch: import('redux').Dispatch,
 ): Promise<void> => {
   try {
     dispatch(actions.addToCartAsync.request());
 
-    const formattedData: import('Cart').CartStorage = {
+    const formattedData: import('Cart').Cart = {
       items: { [product.id]: product.quantity },
     };
 
     const cartJson = await AsyncStorage.getItem('cart');
 
     if (cartJson) {
-      const cart: import('Cart').CartStorage = JSON.parse(cartJson);
+      const cart: import('Cart').Cart = JSON.parse(cartJson);
       const qtyInCart = cart.items[product.id];
 
       if (qtyInCart) {
-        formattedData.items[product.id] = String(
-          Number(formattedData.items[product.id]) + Number(qtyInCart),
-        );
+        formattedData.items[product.id] =
+          Number(formattedData.items[product.id]) + Number(qtyInCart);
       }
     }
 

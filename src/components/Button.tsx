@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Button as RNEButton } from 'react-native-elements';
 import Color from 'color';
 
-import { Colors } from 'styles';
-import { Text } from './Typography';
+import { Colors, Fonts } from 'styles';
 
 /* Typings
 ============================================================================= */
@@ -18,16 +18,29 @@ type Props = {
 ============================================================================= */
 
 const Button: React.FC<Props> = ({
-  title,
   onPress,
+  title,
   disabled,
 }): React.ReactElement => (
-  <TouchableOpacity disabled={disabled} onPress={onPress}>
-    <View style={[styles.button, disabled && styles.disabled]}>
-      <Text style={styles.title}>{title}</Text>
-    </View>
-  </TouchableOpacity>
+  <RNEButton
+    buttonStyle={styles.button}
+    onPress={onPress}
+    title={title}
+    titleStyle={styles.title}
+    disabled={disabled}
+    disabledStyle={styles.disabled}
+    disabledTitleStyle={styles.title}
+  />
 );
+
+/* DefaultProps
+============================================================================= */
+
+Button.defaultProps = {
+  onPress: () => {}, // eslint-disable-line @typescript-eslint/no-empty-function
+  title: '',
+  disabled: false,
+};
 
 /* StyleSheet
 ============================================================================= */
@@ -36,12 +49,14 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     backgroundColor: Colors.secondary,
+    borderRadius: 0,
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 13,
   },
   title: {
     color: Colors.white,
+    fontFamily: Fonts.default,
     fontSize: 16,
     fontWeight: '700',
     paddingBottom: 1,

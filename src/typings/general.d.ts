@@ -7,7 +7,7 @@ declare module 'ErrorTypes' {
 declare module 'FormTypes' {
   export type Option = {
     label: string;
-    value: string;
+    value: string | number;
   };
 
   export type OptionList = Option[];

@@ -25,6 +25,15 @@ const Info: React.FC<Props> = ({ name, priceRange, subtitle }) => (
   </View>
 );
 
+/* DefaultProps
+============================================================================= */
+
+Info.defaultProps = {
+  name: '',
+  priceRange: '',
+  subtitle: '',
+};
+
 /* StyleSheet
 ============================================================================= */
 

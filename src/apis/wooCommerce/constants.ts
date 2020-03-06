@@ -2,14 +2,9 @@
 ============================================================================= */
 
 export const WOO_PRODUCT_OVERVIEW_FIELDS = [
-  // 'attributes',
-  // 'categories',
-  // 'default_attributes',
   'id',
   'images',
   'name',
-  // 'parent_id',
-  // 'price',
   'price_html',
   'short_description',
   'stock_status',

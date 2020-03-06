@@ -44,7 +44,7 @@ declare module 'ProductModels' {
     }[];
     meta_data: {
       id: number;
-      key: 'string';
+      key: string;
       value: any; // eslint-disable-line @typescript-eslint/no-explicit-any
     }[];
     variations: number[];

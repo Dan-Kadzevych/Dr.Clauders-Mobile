@@ -58,7 +58,7 @@ const variationsReducer = createReducer(initialState.variations).handleType(
     },
   ) => ({
     byId: { ...state.byId, ...variations },
-    ids: [...state.ids, ...result],
+    ids: uniq([...state.ids, ...result]),
   }),
 );
 

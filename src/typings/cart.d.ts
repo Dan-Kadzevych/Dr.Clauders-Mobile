@@ -1,7 +1,12 @@
 declare module 'Cart' {
-  export type CartStorage = {
+  export type Cart = {
     items: {
-      [key: string]: string;
+      [key: string]: number;
     };
+  };
+
+  export type CartProduct = {
+    id: string;
+    quantity: number;
   };
 }

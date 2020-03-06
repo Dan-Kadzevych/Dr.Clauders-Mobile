@@ -31,7 +31,7 @@ const Picker: React.FC<Props> = ({
   children,
   prefix,
 }) => {
-  const [field] = useField(name);
+  const [field, , helpers] = useField(name);
 
   if (children) {
     return (
@@ -39,7 +39,7 @@ const Picker: React.FC<Props> = ({
         doneText="Выбрать"
         Icon={ChevronIcon}
         items={items}
-        onValueChange={field.onChange(field.name)}
+        onValueChange={v => helpers.setValue(v)}
         placeholder={placeholder}
         style={styles}
         value={field.value}
@@ -54,7 +54,7 @@ const Picker: React.FC<Props> = ({
       doneText="Выбрать"
       Icon={ChevronIcon}
       items={items}
-      onValueChange={field.onChange(field.name)}
+      onValueChange={v => helpers.setValue(v)}
       placeholder={placeholder}
       style={styles}
       value={field.value}
@@ -63,7 +63,7 @@ const Picker: React.FC<Props> = ({
         <>
           <TextInput
             style={[styles.inputIOS, styles.placeholder]}
-            value={`${prefix} ${field.value}`}
+            value={`${prefix}${field.value}`}
             editable={false}
           />
           <View style={styles.iconContainer}>
@@ -73,6 +73,16 @@ const Picker: React.FC<Props> = ({
       )}
     </RNPickerSelect>
   );
+};
+
+/* Default Props
+============================================================================= */
+
+Picker.defaultProps = {
+  name: '',
+  items: [],
+  placeholder: {},
+  prefix: '',
 };
 
 /* StyleSheet

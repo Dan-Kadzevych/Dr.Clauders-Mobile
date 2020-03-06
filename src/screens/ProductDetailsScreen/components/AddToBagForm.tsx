@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 import { Button, Picker, Text } from 'components';
 import { Colors } from 'styles';
@@ -18,6 +19,17 @@ type Props = {
   variations: import('ProductModels').ProductVariationsById;
 };
 
+/* Form Validation
+============================================================================= */
+
+const AddToBagSchema = Yup.object().shape({
+  packageSize: Yup.string().required('Обязательное'),
+  quantity: Yup.number()
+    .min(1, 'Слишком Мало!')
+    .max(10, 'Слишком Много!')
+    .required('Обязательное'),
+});
+
 /* AddToBagForm
 ============================================================================= */
 
@@ -32,13 +44,14 @@ const AddToBagForm: React.FC<Props> = ({
     <Formik
       initialValues={{
         packageSize: defaultPackageSizeValue,
-        quantity: '1',
+        quantity: 1,
       }}
+      validationSchema={AddToBagSchema}
       onSubmit={async ({ packageSize: id, quantity }) =>
         dispatch(addToCart({ id, quantity }))
       }
     >
-      {({ values, handleSubmit, isSubmitting }) => {
+      {({ values, handleSubmit, isSubmitting, isValid }) => {
         const activePackageSizeVariation = variations[values.packageSize];
 
         return (
@@ -57,7 +70,7 @@ const AddToBagForm: React.FC<Props> = ({
                 name="quantity"
                 items={QTY_OPTIONS}
                 placeholder={{}}
-                prefix="КОЛ-ВО:"
+                prefix="КОЛ-ВО: "
               />
             </View>
             <View style={styles.addToBagContainer}>
@@ -67,7 +80,7 @@ const AddToBagForm: React.FC<Props> = ({
                 </Text>
               )}
               <Button
-                disabled={!activePackageSizeVariation || isSubmitting}
+                disabled={!isValid || isSubmitting}
                 title="В Корзину"
                 onPress={handleSubmit}
               />
@@ -78,6 +91,18 @@ const AddToBagForm: React.FC<Props> = ({
     </Formik>
   );
 };
+
+/* DefaultProps
+============================================================================= */
+
+AddToBagForm.defaultProps = {
+  defaultPackageSizeValue: '',
+  packageSizeOptions: [],
+  variations: {},
+};
+
+/* StyleSheet
+============================================================================= */
 
 const styles = StyleSheet.create({
   variationForm: {
@@ -107,5 +132,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
 });
+
+/* Export
+============================================================================= */
 
 export default AddToBagForm;

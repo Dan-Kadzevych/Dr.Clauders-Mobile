@@ -3,7 +3,7 @@ import { normalize } from 'normalizr';
 
 import { formatProductDetails } from './utils';
 import types from './types';
-import { productSchema, productVariationListSchema } from '../schemas';
+import { productDetailsSchema, productVariationListSchema } from '../schemas';
 
 const getProductDetailsAsync = createAsyncAction(
   types.getProductDetailsRequest,
@@ -12,7 +12,7 @@ const getProductDetailsAsync = createAsyncAction(
     (product: import('ProductModels').ProductDetailsResponse) => {
       const formattedProduct = formatProductDetails(product);
 
-      return normalize(formattedProduct, productSchema);
+      return normalize(formattedProduct, productDetailsSchema);
     },
   ],
   [
@@ -54,18 +54,14 @@ const getProductVariationsAsync = createAsyncAction(
 
 const addToCartAsync = createAsyncAction(
   types.addToCartRequest,
-  [types.addToCartSuccess, (cartData: import('Cart').CartStorage) => cartData],
+  [types.addToCartSuccess, (cartData: import('Cart').Cart) => cartData],
   [
     types.addToCartFailure,
     (error: import('ErrorTypes').Error) => ({
       error,
     }),
   ],
-)<
-  undefined,
-  import('Cart').CartStorage,
-  { error: import('ErrorTypes').Error }
->();
+)<undefined, import('Cart').Cart, { error: import('ErrorTypes').Error }>();
 
 export default {
   addToCartAsync,

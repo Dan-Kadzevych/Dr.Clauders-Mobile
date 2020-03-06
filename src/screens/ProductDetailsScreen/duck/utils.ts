@@ -2,7 +2,7 @@ import { decodeHTML } from 'entities';
 import omit from 'lodash/omit';
 import get from 'lodash/get';
 
-import { removeHTML } from 'utils/general';
+import { removeHTML } from 'utils/string';
 import { PACKAGE_SIZE_ATTRIBUTE_NAMES } from './constants';
 
 export const formatProductDetails = (

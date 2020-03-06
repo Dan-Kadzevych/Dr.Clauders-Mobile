@@ -84,6 +84,7 @@ export const makeProductDetailsSelectors = () => {
 
   return {
     getProductDetails,
+    getProductVariations,
     getDefaultPackageSizeValue,
     getPackageSizeOptions,
   };

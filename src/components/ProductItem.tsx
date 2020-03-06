@@ -6,9 +6,9 @@ import {
   View,
 } from 'react-native';
 
-import { Text } from 'components';
 import { Colors } from 'styles';
 import { normalize } from 'utils/styles';
+import Text from './Typography/Text';
 
 /* Typings
 ============================================================================= */
@@ -44,6 +44,18 @@ const ProductItem: React.FC<Props> = ({
     </View>
   </TouchableWithoutFeedback>
 );
+
+/* Default Props
+============================================================================= */
+
+ProductItem.defaultProps = {
+  description: '',
+  image: '',
+  index: 0,
+  name: '',
+  handlePress: () => {}, // eslint-disable-line @typescript-eslint/no-empty-function
+  price: '',
+};
 
 /* StyleSheet
 ============================================================================= */

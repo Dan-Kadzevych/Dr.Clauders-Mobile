@@ -79,6 +79,8 @@ declare module 'ProductModels' {
     stock_status: StockStatus;
   };
 
+  export type ProductVariationList = ProductVariation[];
+
   export type ProductVariationsById = { [key: string]: ProductVariation };
 
   export type NormalizedProductVariations = {

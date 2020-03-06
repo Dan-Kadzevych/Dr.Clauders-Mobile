@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text as NativeText, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Text as RNEText } from 'react-native-elements';
 
 import { Fonts } from 'styles';
 
@@ -14,7 +15,14 @@ import { Fonts } from 'styles';
 const Text: React.FC<import('react-native').TextProps> = ({
   style,
   ...props
-}) => <NativeText style={[styles.text, style && style]} {...props} />;
+}) => <RNEText style={[styles.text, style && style]} {...props} />;
+
+/* Default Props
+============================================================================= */
+
+Text.defaultProps = {
+  style: undefined,
+};
 
 /* StyleSheet
 ============================================================================= */

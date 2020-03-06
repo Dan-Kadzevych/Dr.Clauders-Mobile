@@ -1,6 +1,6 @@
 import { schema } from 'normalizr';
 
-export const productSchema = new schema.Entity<
+export const productDetailsSchema = new schema.Entity<
   import('ProductModels').ProductDetails
 >('product');
 

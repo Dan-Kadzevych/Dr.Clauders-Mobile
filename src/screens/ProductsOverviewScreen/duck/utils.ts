@@ -1,7 +1,7 @@
 import { decodeHTML } from 'entities';
 import omit from 'lodash/omit';
 
-import { removeHTML } from 'utils/general';
+import { removeHTML } from 'utils/string';
 
 export const formatProductsOverview = (
   products: import('ProductModels').ProductOverviewListResponse,

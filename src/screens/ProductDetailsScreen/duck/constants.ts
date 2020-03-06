@@ -2,7 +2,7 @@ const getQtyOptions = (qty: number): import('FormTypes').OptionList => {
   const options = [];
 
   for (let i = 1; i <= qty; i += 1) {
-    options.push({ label: i.toString(), value: i.toString() });
+    options.push({ label: i.toString(), value: i });
   }
 
   return options;
