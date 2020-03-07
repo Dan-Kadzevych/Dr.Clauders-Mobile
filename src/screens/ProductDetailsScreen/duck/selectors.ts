@@ -15,6 +15,11 @@ export const getProductVariationsById = (
 ): import('ProductModels').ProductVariationsById =>
   get(state, 'productDetails.variations.byId', emptyObj);
 
+export const getProductVariationsArray = createSelector(
+  getProductVariationsById,
+  variationsById => Object.keys(variationsById).map(key => variationsById[key]),
+);
+
 export const makeProductDetailsSelectors = () => {
   const getProductDetails = createSelector(
     getProductDetailsById,
@@ -24,15 +29,10 @@ export const makeProductDetailsSelectors = () => {
   );
 
   const getProductVariations = createSelector(
-    getProductDetails,
-    getProductVariationsById,
-    (product, variationsById) => {
-      if (product && product.variations) {
-        return compact(product.variations.map(id => variationsById[id]));
-      }
-
-      return emptyArr;
-    },
+    getProductVariationsArray,
+    (state: import('MyTypes').RootState, productId: number): number =>
+      productId,
+    (variations, productId) => variations.filter(v => v.parentId === productId),
   );
 
   const getPackageSizeOptions = createSelector(
@@ -93,4 +93,5 @@ export const makeProductDetailsSelectors = () => {
 export default {
   makeProductDetailsSelectors,
   getProductVariationsById,
+  getProductVariationsArray,
 } as const;

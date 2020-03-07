@@ -2,7 +2,11 @@ import { normalize } from 'normalizr';
 import compact from 'lodash/compact';
 
 import { productDetailsSchema, productVariationListSchema } from '../schemas';
-import { formatProductDetails, getPackageSizeAttribute } from './utils';
+import {
+  formatProductDetails,
+  formatProductVariations,
+  getPackageSizeAttribute,
+} from './utils';
 
 const productId = 92;
 
@@ -142,12 +146,12 @@ const productVariationListResponse: import('ProductModels').ProductVariationList
 
 const cartProduct: import('Cart').CartProduct = {
   id: '92',
-  quantity: '1',
+  quantity: 1,
 };
 
 const cart: import('Cart').Cart = {
   items: {
-    '92': '1',
+    '92': 1,
   },
 };
 
@@ -165,7 +169,10 @@ const normalizedProductVariations = normalize<
   import('ProductModels').ProductVariation,
   import('ProductModels').NormalizedProductVariations,
   number[]
->(productVariationListResponse, productVariationListSchema);
+>(
+  formatProductVariations(productVariationListResponse, productId),
+  productVariationListSchema,
+);
 
 const productDetailsState: import('./reducer').ProductDetailsState = {
   products: {
@@ -222,6 +229,8 @@ const packageSizeAttribute = {
 
 const productSubtitle = 'Геленк Сироп для суставов кошек';
 
+const variationIds = productVariations.map(v => v.id);
+
 export default {
   cart,
   cartProduct,
@@ -238,5 +247,6 @@ export default {
   attributes,
   packageSizeAttribute,
   productSubtitle,
+  variationIds,
   error,
 } as const;

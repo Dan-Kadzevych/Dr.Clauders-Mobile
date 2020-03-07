@@ -25,8 +25,10 @@ declare module 'NavigatorModels' {
     ProductDetails: { productId: number };
   };
 
-  export type ProductsNavigationProp = CompositeNavigationProp<
-    StackNavigationProp<ProductsStackParamList, 'ProductsOverview'>,
+  export type ProductsNavigationProp<
+    Screen extends keyof ProductsStackParamList
+  > = CompositeNavigationProp<
+    StackNavigationProp<ProductsStackParamList, Screen>,
     StoreNavigationProp
   >;
 

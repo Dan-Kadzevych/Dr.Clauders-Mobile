@@ -5,6 +5,7 @@ import isEmpty from 'lodash/isEmpty';
 
 import { Text } from 'components';
 import { Colors } from 'styles';
+import axios from 'axios';
 import { AddToBagForm, Info } from './components';
 import { productDetailsOperations, productDetailsSelectors } from './duck';
 import { getProductSubtitle } from './duck/utils';
@@ -14,21 +15,61 @@ import { getProductSubtitle } from './duck/utils';
 
 export type Props = {
   route: import('NavigatorModels').ProductsRouteProp<'ProductDetails'>;
+  navigation: import('NavigatorModels').ProductsNavigationProp<
+    'ProductDetails'
+  >;
 };
 
 /* ProductDetailsScreen
 ============================================================================= */
 
-const ProductDetailsScreen: React.FC<Props> = ({ route }) => {
+const ProductDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
   const {
     params: { productId },
   } = route;
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(productDetailsOperations.getProductDetails(productId));
-    dispatch(productDetailsOperations.getProductVariations(productId));
+    const source = axios.CancelToken.source();
+
+    dispatch(
+      productDetailsOperations.getProductDetails(productId, {
+        cancelToken: source.token,
+      }),
+    );
+    dispatch(
+      productDetailsOperations.getProductVariations(productId, {
+        cancelToken: source.token,
+      }),
+    );
+
+    return () => {
+      source.cancel('Operation canceled by the user.');
+    };
   }, [dispatch, productId]);
+
+  useEffect(
+    () => () => {
+      const { routes, index } = navigation.dangerouslyGetState();
+      const shouldClear = !routes.filter((r, i) => {
+        if (r.name === 'ProductDetails') {
+          const { params } = r as import('NavigatorModels').ProductsRouteProp<
+            'ProductDetails'
+          >;
+
+          return params.productId === productId && i + 1 !== index;
+        }
+
+        return false;
+      }).length;
+
+      if (shouldClear) {
+        dispatch(productDetailsOperations.clearProductDetails(productId));
+      }
+    },
+    [dispatch, navigation, productId],
+  );
 
   const {
     getProductDetails,

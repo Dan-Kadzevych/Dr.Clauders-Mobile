@@ -7,7 +7,7 @@ import testData from '../testData';
 
 describe('Product Details Operations', () => {
   const mockStore = configureMockStore<
-    undefined,
+    import('MyTypes').RootState,
     import('TestTypes').DispatchExts
   >([thunk]);
 
@@ -54,6 +54,19 @@ describe('Product Details Operations', () => {
       ];
 
       await store.dispatch(operations.addToCart(testData.cartProduct));
+
+      const actions = store.getActions();
+      const actionTypes = actions.map(action => action.type);
+
+      expect(actionTypes).toEqual(expectedActionTypes);
+    });
+  });
+  describe('Clear Product Details', () => {
+    test('Should dispatch correct actions on success', async () => {
+      const store = mockStore();
+      const expectedActionTypes = [types.clearProductDetails];
+
+      await store.dispatch(operations.clearProductDetails(testData.productId));
 
       const actions = store.getActions();
       const actionTypes = actions.map(action => action.type);

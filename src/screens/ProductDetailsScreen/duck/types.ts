@@ -16,6 +16,8 @@ const addToCartRequest = '[Product Details] Add To Cart Request';
 const addToCartSuccess = '[Product Details] Add To Cart Success';
 const addToCartFailure = '[Product Details] Add To Cart Failure';
 
+const clearProductDetails = '[Product Details] Clear Product Details';
+
 export default {
   getProductDetailsRequest,
   getProductDetailsSuccess,
@@ -26,4 +28,5 @@ export default {
   addToCartRequest,
   addToCartSuccess,
   addToCartFailure,
+  clearProductDetails,
 } as const;

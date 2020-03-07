@@ -46,7 +46,37 @@ describe('Products Details Reducer', () => {
       undefined,
       actions.getProductVariationsAsync.success(
         testData.productVariationListResponse,
+        testData.productId,
       ),
+    );
+
+    expect(newState).toEqual(expectedState);
+  });
+
+  test('Should handle Clear Product Details Success action', () => {
+    const {
+      entities: { variations },
+      result,
+    } = testData.normalizedProductVariations;
+    const {
+      entities: { product },
+      result: productDetailsId,
+    } = testData.normalizedProductDetails;
+    const expectedState: ProductDetailsState = initialState;
+    const reducerState: ProductDetailsState = {
+      products: {
+        byId: product,
+        ids: [productDetailsId],
+      },
+      variations: {
+        byId: variations,
+        ids: result,
+      },
+    };
+
+    const newState = reducer(
+      reducerState,
+      actions.clearProductDetails(testData.productId, testData.variationIds),
     );
 
     expect(newState).toEqual(expectedState);

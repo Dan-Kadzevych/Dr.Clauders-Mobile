@@ -11,7 +11,10 @@ import {
   WOO_PRODUCT_VARIATION_FIELDS,
 } from '../constants';
 
-export const fetchProducts = (params?: import('Woo').Params) =>
+export const fetchProducts = (
+  params: import('Woo').Params = {},
+  config: import('axios').AxiosRequestConfig = {},
+) =>
   wooCommerceApi.get<import('ProductModels').ProductOverviewListResponse>(
     getAllProductsUrl(),
     {
@@ -20,10 +23,15 @@ export const fetchProducts = (params?: import('Woo').Params) =>
         per_page: WOO_PRODUCT_PER_PAGE,
         ...params,
       },
+      ...config,
     },
   );
 
-export const fetchProductById = (id: number, params?: import('Woo').Params) =>
+export const fetchProductById = (
+  id: number,
+  params: import('Woo').Params = {},
+  config: import('axios').AxiosRequestConfig = {},
+) =>
   wooCommerceApi.get<import('ProductModels').ProductDetailsResponse>(
     getProductByIdUrl(id),
     {
@@ -31,12 +39,14 @@ export const fetchProductById = (id: number, params?: import('Woo').Params) =>
         _fields: WOO_PRODUCT_DETAILS_FIELDS,
         ...params,
       },
+      ...config,
     },
   );
 
 export const fetchProductVariations = (
   id: number,
-  params?: import('Woo').Params,
+  params: import('Woo').Params = {},
+  config: import('axios').AxiosRequestConfig = {},
 ) =>
   wooCommerceApi.get<import('ProductModels').ProductVariationListResponse>(
     getProductVariationsUrl(id),
@@ -45,5 +55,6 @@ export const fetchProductVariations = (
         _fields: WOO_PRODUCT_VARIATION_FIELDS,
         ...params,
       },
+      ...config,
     },
   );

@@ -49,6 +49,7 @@ describe('Products Details Actions', () => {
     test('Get Products Variations Success', () => {
       const action = actions.getProductVariationsAsync.success(
         testData.productVariationListResponse,
+        testData.productId,
       );
 
       const expectedAction = {
@@ -101,5 +102,20 @@ describe('Products Details Actions', () => {
 
       expect(action).toEqual(expectedAction);
     });
+  });
+  test('Clear Product Details Request', () => {
+    const action = actions.clearProductDetails(
+      testData.productId,
+      testData.variationIds,
+    );
+    const expectedAction = {
+      type: types.clearProductDetails,
+      payload: {
+        productId: testData.productId,
+        variationIds: testData.variationIds,
+      },
+    };
+
+    expect(action).toEqual(expectedAction);
   });
 });

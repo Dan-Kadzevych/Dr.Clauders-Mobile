@@ -13,6 +13,13 @@ describe('Product Details Selectors', () => {
   } = productDetailsSelectors.makeProductDetailsSelectors();
 
   describe('Get Product Details Selectors', () => {
+    test('getProductVariationsArray', () => {
+      const selectorData = productDetailsSelectors.getProductVariationsArray(
+        state,
+      );
+      expect(selectorData).toEqual(testData.productVariations);
+    });
+
     test('getProductDetails', () => {
       const selectorData = getProductDetails(state, testData.productId);
       expect(selectorData).toEqual(testData.productDetails);

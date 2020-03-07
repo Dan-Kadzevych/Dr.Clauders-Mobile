@@ -10,7 +10,9 @@ import { productsOverviewOperations, productsOverviewSelectors } from './duck';
 ============================================================================= */
 
 type Props = {
-  navigation: import('NavigatorModels').ProductsNavigationProp;
+  navigation: import('NavigatorModels').ProductsNavigationProp<
+    'ProductsOverview'
+  >;
 };
 
 /* ProductsScreen

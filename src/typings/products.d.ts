@@ -77,6 +77,7 @@ declare module 'ProductModels' {
     menu_order: number;
     price: string;
     stock_status: StockStatus;
+    parentId: number;
   };
 
   export type ProductVariationList = ProductVariation[];

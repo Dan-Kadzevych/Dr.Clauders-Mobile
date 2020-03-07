@@ -18,6 +18,12 @@ export const formatProductDetails = (
     '_links',
   );
 
+export const formatProductVariations = (
+  variations: import('ProductModels').ProductVariationListResponse,
+  parentId: number,
+): import('ProductModels').ProductVariationList =>
+  variations.map(v => ({ ...v, parentId }));
+
 export const getProductSubtitle = (
   product: import('ProductModels').ProductDetails | undefined,
 ): string | undefined => {
@@ -40,3 +46,10 @@ export const getPackageSizeAttribute = <
   attributes: T[],
 ): T | undefined =>
   attributes.find(attr => PACKAGE_SIZE_ATTRIBUTE_NAMES.includes(attr.name));
+
+export default {
+  formatProductDetails,
+  formatProductVariations,
+  getProductSubtitle,
+  getPackageSizeAttribute,
+} as const;
