@@ -1,22 +1,60 @@
 import wooCommerceApi from '../wooCommerceApi';
 import {
-  WOO_PRODUCT_URL,
-  WOO_PRODUCT_FIELDS,
+  getAllProductsUrl,
+  getProductByIdUrl,
+  getProductVariationsUrl,
+} from '../urls';
+import {
+  WOO_PRODUCT_OVERVIEW_FIELDS,
+  WOO_PRODUCT_DETAILS_FIELDS,
   WOO_PRODUCT_PER_PAGE,
+  WOO_PRODUCT_VARIATION_FIELDS,
 } from '../constants';
 
-export const fetchProducts = async (params?: import('Woo').Params) => {
-  const response = await wooCommerceApi.get<
-    import('ProductModels').ProductListResponse
-  >(WOO_PRODUCT_URL, {
-    params: {
-      _fields: WOO_PRODUCT_FIELDS,
-      per_page: WOO_PRODUCT_PER_PAGE,
-      ...params,
+export const fetchProducts = (
+  params: import('Woo').Params = {},
+  config: import('axios').AxiosRequestConfig = {},
+) =>
+  wooCommerceApi.get<import('ProductModels').ProductOverviewListResponse>(
+    getAllProductsUrl(),
+    {
+      params: {
+        _fields: WOO_PRODUCT_OVERVIEW_FIELDS,
+        per_page: WOO_PRODUCT_PER_PAGE,
+        ...params,
+      },
+      ...config,
     },
-  });
+  );
 
-  return response;
-};
+export const fetchProductById = (
+  id: number,
+  params: import('Woo').Params = {},
+  config: import('axios').AxiosRequestConfig = {},
+) =>
+  wooCommerceApi.get<import('ProductModels').ProductDetailsResponse>(
+    getProductByIdUrl(id),
+    {
+      params: {
+        _fields: WOO_PRODUCT_DETAILS_FIELDS,
+        ...params,
+      },
+      ...config,
+    },
+  );
 
-export default { fetchProducts };
+export const fetchProductVariations = (
+  id: number,
+  params: import('Woo').Params = {},
+  config: import('axios').AxiosRequestConfig = {},
+) =>
+  wooCommerceApi.get<import('ProductModels').ProductVariationListResponse>(
+    getProductVariationsUrl(id),
+    {
+      params: {
+        _fields: WOO_PRODUCT_VARIATION_FIELDS,
+        ...params,
+      },
+      ...config,
+    },
+  );

@@ -3,3 +3,12 @@ declare module 'ErrorTypes' {
     message: string;
   };
 }
+
+declare module 'FormTypes' {
+  export type Option = {
+    label: string;
+    value: string | number;
+  };
+
+  export type OptionList = Option[];
+}

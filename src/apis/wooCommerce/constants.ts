@@ -1,23 +1,40 @@
-export const WOO_PRODUCT_URL = '/products';
-export const WOO_PRODUCT_FIELDS = [
-  'attributes',
-  'categories',
-  'default_attributes',
-  'images',
+/* Product Constants
+============================================================================= */
+
+export const WOO_PRODUCT_OVERVIEW_FIELDS = [
   'id',
+  'images',
   'name',
-  'parent_id',
-  'price',
+  'price_html',
   'short_description',
-  'stock_quantity',
   'stock_status',
   'type',
-  'variations',
-  'price_html',
 ];
 export const WOO_PRODUCT_PER_PAGE = 30;
 
-export const WOO_CATEGORY_URL = '/products/categories';
+export const WOO_PRODUCT_DETAILS_FIELDS = [
+  ...WOO_PRODUCT_OVERVIEW_FIELDS,
+  'meta_data',
+  'variations',
+  'attributes',
+  'default_attributes',
+];
+
+/* Product Variation Constants
+============================================================================= */
+
+export const WOO_PRODUCT_VARIATION_FIELDS = [
+  'attributes',
+  'categories',
+  'id',
+  'menu_order',
+  'price',
+  'stock_status',
+];
+
+/* Category Constants
+============================================================================= */
+
 export const WOO_CATEGORY_FIELDS = [
   'count',
   'id',
@@ -27,5 +44,6 @@ export const WOO_CATEGORY_FIELDS = [
   'menu_order',
   'name',
   'parent',
+  'price',
 ];
 export const WOO_CATEGORY_PER_PAGE = 30;
