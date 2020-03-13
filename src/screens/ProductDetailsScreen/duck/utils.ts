@@ -18,11 +18,11 @@ export const formatProductDetails = (
     '_links',
   );
 
-export const formatProductVariations = (
+export const formatProductVariationList = (
   variations: import('ProductModels').ProductVariationListResponse,
   parentId: number,
 ): import('ProductModels').ProductVariationList =>
-  variations.map(v => ({ ...v, parentId }));
+  variations.map(v => omit({ ...v, parentId }, '_links'));
 
 export const getProductSubtitle = (
   product: import('ProductModels').ProductDetails | undefined,
@@ -47,9 +47,27 @@ export const getPackageSizeAttribute = <
 ): T | undefined =>
   attributes.find(attr => PACKAGE_SIZE_ATTRIBUTE_NAMES.includes(attr.name));
 
+export const findDetailsScreenRoute = (
+  routes: import('NavigatorModels').RouteList,
+  productId: number,
+  index: number,
+) =>
+  routes.find((r, i) => {
+    if (r.name === 'ProductDetails') {
+      const { params } = r as import('NavigatorModels').ProductsRouteProp<
+        'ProductDetails'
+      >;
+
+      return params.productId === productId && i + 1 !== index;
+    }
+
+    return false;
+  });
+
 export default {
   formatProductDetails,
-  formatProductVariations,
+  formatProductVariationList,
   getProductSubtitle,
   getPackageSizeAttribute,
+  findDetailsScreenRoute,
 } as const;

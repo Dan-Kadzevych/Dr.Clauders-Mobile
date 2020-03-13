@@ -1,12 +1,17 @@
 declare module 'Cart' {
-  export type Cart = {
-    items: {
-      [key: string]: number;
-    };
+  export type CartProduct = {
+    productId: import('General').Id;
+    variationId: import('General').Id;
   };
 
-  export type CartProduct = {
-    id: string;
-    quantity: number;
+  export type QuantityById = {
+    [key: string]: number | string;
+  };
+
+  export type Cart = {
+    itemsById: {
+      [key: string]: CartProduct;
+    };
+    quantityById: QuantityById;
   };
 }

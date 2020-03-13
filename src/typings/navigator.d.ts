@@ -5,9 +5,22 @@ declare module 'NavigatorModels' {
 
   /* Store Typings
 ============================================================================= */
+  export type Route = import('@react-navigation/routers').Route<string> & {
+    state?:
+      | import('@react-navigation/native').NavigationState
+      | import('@react-navigation/routers').PartialState<
+          import('@react-navigation/native').NavigationState
+        >;
+  };
+
+  export type RouteList = Route[];
+
+  /* Store Typings
+============================================================================= */
 
   export type StoreBottomTabParamList = {
     Products: undefined;
+    Cart: undefined;
     Favourites: undefined;
   };
 
@@ -35,4 +48,12 @@ declare module 'NavigatorModels' {
   export type ProductsRouteProp<
     Route extends keyof ProductsStackParamList
   > = RouteProp<ProductsStackParamList, Route>;
+
+  /* Cart Typings
+============================================================================= */
+
+  export type CartStackParamList = {
+    CartOverview: undefined;
+    ProductDetails: { productId: number };
+  };
 }

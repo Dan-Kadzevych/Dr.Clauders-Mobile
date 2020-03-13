@@ -12,6 +12,12 @@ type Props = {
   onPress: () => void;
   title: string;
   disabled?: boolean;
+  buttonStyle?: import('react-native').StyleProp<
+    import('react-native').ViewStyle
+  >;
+  containerStyle?: import('react-native').StyleProp<
+    import('react-native').ViewStyle
+  >;
 };
 
 /* Button
@@ -21,9 +27,12 @@ const Button: React.FC<Props> = ({
   onPress,
   title,
   disabled,
+  buttonStyle,
+  containerStyle,
 }): React.ReactElement => (
   <RNEButton
-    buttonStyle={styles.button}
+    buttonStyle={[styles.button, buttonStyle]}
+    containerStyle={containerStyle}
     onPress={onPress}
     title={title}
     titleStyle={styles.title}
@@ -40,6 +49,8 @@ Button.defaultProps = {
   onPress: () => {}, // eslint-disable-line @typescript-eslint/no-empty-function
   title: '',
   disabled: false,
+  buttonStyle: undefined,
+  containerStyle: undefined,
 };
 
 /* StyleSheet

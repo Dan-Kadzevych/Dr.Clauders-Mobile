@@ -13,6 +13,7 @@ import { normalize } from 'utils/styles';
 type Props = {
   name: string;
   items: import('FormTypes').OptionList;
+  onChange?: (v: stirng | number) => void;
   placeholder: Partial<import('FormTypes').Option>;
   prefix?: string;
 };
@@ -27,6 +28,7 @@ const ChevronIcon: React.FC = () => (
 const Picker: React.FC<Props> = ({
   name,
   items,
+  onChange,
   placeholder,
   children,
   prefix,
@@ -39,7 +41,10 @@ const Picker: React.FC<Props> = ({
         doneText="Выбрать"
         Icon={ChevronIcon}
         items={items}
-        onValueChange={v => helpers.setValue(v)}
+        onValueChange={v => {
+          onChange && onChange(v);
+          helpers.setValue(v);
+        }}
         placeholder={placeholder}
         style={styles}
         value={field.value}
@@ -54,7 +59,10 @@ const Picker: React.FC<Props> = ({
       doneText="Выбрать"
       Icon={ChevronIcon}
       items={items}
-      onValueChange={v => helpers.setValue(v)}
+      onValueChange={v => {
+        onChange && onChange(v);
+        helpers.setValue(v);
+      }}
       placeholder={placeholder}
       style={styles}
       value={field.value}
@@ -81,6 +89,7 @@ const Picker: React.FC<Props> = ({
 Picker.defaultProps = {
   name: '',
   items: [],
+  onChange: () => {}, // eslint-disable-line @typescript-eslint/no-empty-function
   placeholder: {},
   prefix: '',
 };

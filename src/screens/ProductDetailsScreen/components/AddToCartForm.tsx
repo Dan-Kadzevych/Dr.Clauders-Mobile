@@ -16,6 +16,7 @@ import { addToCart } from '../duck/operations';
 type Props = {
   defaultPackageSizeValue: string;
   packageSizeOptions: import('FormTypes').OptionList;
+  productId: number;
   variations: import('ProductModels').ProductVariationsById;
 };
 
@@ -33,9 +34,10 @@ const AddToBagSchema = Yup.object().shape({
 /* AddToBagForm
 ============================================================================= */
 
-const AddToBagForm: React.FC<Props> = ({
+const AddToCartForm: React.FC<Props> = ({
   defaultPackageSizeValue,
   packageSizeOptions,
+  productId,
   variations,
 }) => {
   const dispatch = useDispatch();
@@ -47,8 +49,8 @@ const AddToBagForm: React.FC<Props> = ({
         quantity: 1,
       }}
       validationSchema={AddToBagSchema}
-      onSubmit={async ({ packageSize: id, quantity }) =>
-        dispatch(addToCart({ id, quantity }))
+      onSubmit={async ({ packageSize: variationId, quantity }) =>
+        dispatch(addToCart(variationId, productId, quantity))
       }
     >
       {({ values, handleSubmit, isSubmitting, isValid }) => {
@@ -95,7 +97,7 @@ const AddToBagForm: React.FC<Props> = ({
 /* DefaultProps
 ============================================================================= */
 
-AddToBagForm.defaultProps = {
+AddToCartForm.defaultProps = {
   defaultPackageSizeValue: '',
   packageSizeOptions: [],
   variations: {},
@@ -136,4 +138,4 @@ const styles = StyleSheet.create({
 /* Export
 ============================================================================= */
 
-export default AddToBagForm;
+export default AddToCartForm;

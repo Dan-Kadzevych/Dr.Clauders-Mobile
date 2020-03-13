@@ -51,6 +51,8 @@ declare module 'ProductModels' {
     _links: { self: { href: string }[]; collection: { href: string }[] };
   };
 
+  export type ProductDetailsListResponse = ProductDetailsResponse[];
+
   /* Product Variation Typings
 ============================================================================= */
 

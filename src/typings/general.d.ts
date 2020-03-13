@@ -12,3 +12,7 @@ declare module 'FormTypes' {
 
   export type OptionList = Option[];
 }
+
+declare module 'General' {
+  export type Id = string | number;
+}

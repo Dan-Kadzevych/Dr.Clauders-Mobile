@@ -1,14 +1,14 @@
 import React, { useEffect, useMemo } from 'react';
 import { Image, View, StyleSheet, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 import isEmpty from 'lodash/isEmpty';
 
 import { Text } from 'components';
 import { Colors } from 'styles';
-import axios from 'axios';
-import { AddToBagForm, Info } from './components';
+import { AddToCartForm, Info } from './components';
 import { productDetailsOperations, productDetailsSelectors } from './duck';
-import { getProductSubtitle } from './duck/utils';
+import { getProductSubtitle, findDetailsScreenRoute } from './duck/utils';
 
 /* Typings
 ============================================================================= */
@@ -52,17 +52,7 @@ const ProductDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
   useEffect(
     () => () => {
       const { routes, index } = navigation.dangerouslyGetState();
-      const shouldClear = !routes.filter((r, i) => {
-        if (r.name === 'ProductDetails') {
-          const { params } = r as import('NavigatorModels').ProductsRouteProp<
-            'ProductDetails'
-          >;
-
-          return params.productId === productId && i + 1 !== index;
-        }
-
-        return false;
-      }).length;
+      const shouldClear = !findDetailsScreenRoute(routes, productId, index);
 
       if (shouldClear) {
         dispatch(productDetailsOperations.clearProductDetails(productId));
@@ -111,10 +101,11 @@ const ProductDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
           priceRange={product.price_range}
           subtitle={productSubtitle}
         />
-        <AddToBagForm
-          variations={variations}
+        <AddToCartForm
           defaultPackageSizeValue={defaultPackageSizeValue}
           packageSizeOptions={packageSizeOptions}
+          productId={productId}
+          variations={variations}
         />
       </View>
     </ScrollView>
