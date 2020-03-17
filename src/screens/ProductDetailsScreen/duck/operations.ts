@@ -1,6 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
-import pick from 'lodash/pick';
 
 import {
   fetchProductById,
@@ -55,62 +53,6 @@ export const getProductVariations = (
   }
 };
 
-export const addToCart = (
-  variationId: import('General').Id,
-  productId: import('General').Id,
-  quantity: string | number,
-) => async (
-  dispatch: import('redux').Dispatch,
-  getState: () => import('MyTypes').RootState,
-): Promise<void> => {
-  try {
-    dispatch(actions.addToCartAsync.request());
-
-    const cartJson = await AsyncStorage.getItem('cart');
-    let cart: import('Cart').Cart = { itemsById: {}, quantityById: {} };
-
-    if (cartJson) {
-      cart = JSON.parse(cartJson);
-      const cartItem = cart.itemsById[variationId];
-      const cartQuantity = cart.quantityById[variationId];
-
-      if (cartItem && cartQuantity) {
-        cart.quantityById[variationId] =
-          Number(cartQuantity) + Number(quantity);
-      } else {
-        cart.itemsById[variationId] = {
-          variationId,
-          productId,
-        };
-        cart.quantityById[variationId] = quantity;
-      }
-    } else {
-      cart.itemsById[variationId] = {
-        variationId,
-        productId,
-      };
-      cart.quantityById[variationId] = quantity;
-    }
-
-    await AsyncStorage.setItem('cart', JSON.stringify(cart));
-
-    const addedProduct = pick(
-      getState().productDetails.products.byId,
-      productId,
-    );
-    const addedVariation = pick(
-      getState().productDetails.variations.byId,
-      variationId,
-    );
-
-    dispatch(
-      actions.addToCartAsync.success(cart, addedProduct, addedVariation),
-    );
-  } catch (e) {
-    dispatch(actions.addToCartAsync.failure(e));
-  }
-};
-
 export const clearProductDetails = (productId: number) => (
   dispatch: import('redux').Dispatch,
   getState: () => import('MyTypes').RootState,
@@ -123,7 +65,6 @@ export const clearProductDetails = (productId: number) => (
 };
 
 export default {
-  addToCart,
   getProductDetails,
   getProductVariations,
   clearProductDetails,

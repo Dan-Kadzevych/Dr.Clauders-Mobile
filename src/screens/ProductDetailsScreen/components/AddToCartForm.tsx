@@ -7,8 +7,8 @@ import * as Yup from 'yup';
 import { Button, Picker, Text } from 'components';
 import { Colors } from 'styles';
 import { normalize } from 'utils/styles';
-import { QTY_OPTIONS } from '../duck/constants';
-import { addToCart } from '../duck/operations';
+import { QTY_OPTIONS } from 'utils/constants';
+import { addToCart } from 'screens/CartScreen/duck/operations';
 
 /* Typings
 ============================================================================= */
@@ -16,7 +16,7 @@ import { addToCart } from '../duck/operations';
 type Props = {
   defaultPackageSizeValue: string;
   packageSizeOptions: import('FormTypes').OptionList;
-  productId: number;
+  product: import('ProductModels').ProductDetails;
   variations: import('ProductModels').ProductVariationsById;
 };
 
@@ -37,7 +37,7 @@ const AddToBagSchema = Yup.object().shape({
 const AddToCartForm: React.FC<Props> = ({
   defaultPackageSizeValue,
   packageSizeOptions,
-  productId,
+  product,
   variations,
 }) => {
   const dispatch = useDispatch();
@@ -50,7 +50,7 @@ const AddToCartForm: React.FC<Props> = ({
       }}
       validationSchema={AddToBagSchema}
       onSubmit={async ({ packageSize: variationId, quantity }) =>
-        dispatch(addToCart(variationId, productId, quantity))
+        dispatch(addToCart(product, variations[variationId], quantity))
       }
     >
       {({ values, handleSubmit, isSubmitting, isValid }) => {
@@ -100,6 +100,7 @@ const AddToCartForm: React.FC<Props> = ({
 AddToCartForm.defaultProps = {
   defaultPackageSizeValue: '',
   packageSizeOptions: [],
+  product: {} as import('ProductModels').ProductDetails,
   variations: {},
 };
 

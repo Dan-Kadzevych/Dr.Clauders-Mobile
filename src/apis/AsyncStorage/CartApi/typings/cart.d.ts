@@ -1,4 +1,4 @@
-declare module 'Cart' {
+declare module 'CartModels' {
   export type CartProduct = {
     productId: import('General').Id;
     variationId: import('General').Id;
@@ -13,5 +13,13 @@ declare module 'Cart' {
       [key: string]: CartProduct;
     };
     quantityById: QuantityById;
+  };
+
+  export type CartItem = {
+    image: string;
+    price: string | number;
+    name: string;
+    quantity: string | number;
+    id: string | number;
   };
 }

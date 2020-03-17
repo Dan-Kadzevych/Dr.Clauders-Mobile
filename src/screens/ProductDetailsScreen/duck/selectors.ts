@@ -3,7 +3,7 @@ import get from 'lodash/get';
 import compact from 'lodash/compact';
 
 import { emptyObj, emptyArr } from 'utils/constants';
-import { getPackageSizeAttribute } from './utils';
+import { getPackageSizeAttribute } from 'utils/products';
 
 export const getProductDetailsById = (
   state: import('MyTypes').RootState,

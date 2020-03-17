@@ -104,7 +104,7 @@ const ProductDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
         <AddToCartForm
           defaultPackageSizeValue={defaultPackageSizeValue}
           packageSizeOptions={packageSizeOptions}
-          productId={productId}
+          product={product}
           variations={variations}
         />
       </View>

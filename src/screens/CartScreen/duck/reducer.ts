@@ -1,18 +1,17 @@
 import { combineReducers } from 'redux';
 import { createReducer } from 'typesafe-actions';
 
-import ProductDetailsTypes from 'screens/ProductDetailsScreen/duck/types';
 import uniq from 'lodash/uniq';
 import types from './types';
 
 type ProductsState = {
   byId: import('ProductModels').ProductDetailsById;
-  ids: number[];
+  ids: (number | string)[];
 };
 
 type ProductVariationsState = {
   byId: import('ProductModels').ProductVariationsById;
-  ids: number[];
+  ids: (number | string)[];
 };
 
 export type QuantityByID = { [key: string]: string | number };
@@ -43,7 +42,7 @@ export const initialState: CartState = {
 
 const productsReducer = createReducer(initialState.products)
   .handleType(
-    types.getCartProductsOverviewSuccess,
+    types.getCartProductsSuccess,
     (
       state,
       {
@@ -59,21 +58,18 @@ const productsReducer = createReducer(initialState.products)
       ids: uniq([...state.ids, ...result]),
     }),
   )
-  .handleType(
-    ProductDetailsTypes.addToCartSuccess,
-    (state, { payload: { products } }) => {
-      const productIds = Object.keys(products).map(Number);
+  .handleType(types.updateCartSuccess, (state, { payload: { products } }) => {
+    const productIds = Object.keys(products);
 
-      return {
-        byId: { ...state.byId, ...products },
-        ids: uniq([...state.ids, ...productIds]),
-      };
-    },
-  );
+    return {
+      byId: { ...state.byId, ...products },
+      ids: uniq([...state.ids, ...productIds]),
+    };
+  });
 
 const variationsReducer = createReducer(initialState.variations)
   .handleType(
-    types.getCartProductsOverviewSuccess,
+    types.getCartProductsSuccess,
     (
       state,
       {
@@ -89,27 +85,24 @@ const variationsReducer = createReducer(initialState.variations)
       ids: uniq([...state.ids, ...result]),
     }),
   )
-  .handleType(
-    ProductDetailsTypes.addToCartSuccess,
-    (state, { payload: { variations } }) => {
-      const variationIds = Object.keys(variations).map(Number);
+  .handleType(types.updateCartSuccess, (state, { payload: { variations } }) => {
+    const variationIds = Object.keys(variations);
 
-      return {
-        byId: { ...state.byId, ...variations },
-        ids: uniq([...state.ids, ...variationIds]),
-      };
-    },
-  );
+    return {
+      byId: { ...state.byId, ...variations },
+      ids: uniq([...state.ids, ...variationIds]),
+    };
+  });
 
 const quantityReducer = createReducer(initialState.quantity)
   .handleType(
-    types.getCartProductsOverviewSuccess,
+    types.getCartProductsSuccess,
     (state, { payload: { quantityById } }) => ({
       byId: { ...state.byId, ...quantityById },
     }),
   )
   .handleType(
-    [types.updateCartSuccess, ProductDetailsTypes.addToCartSuccess],
+    types.updateCartSuccess,
     (state, { payload: { quantityById } }) => ({
       byId: { ...state.byId, ...quantityById },
     }),

@@ -3,7 +3,7 @@ import get from 'lodash/get';
 import compact from 'lodash/compact';
 
 import { emptyObj } from 'utils/constants';
-import { getPackageSizeAttribute } from 'screens/ProductDetailsScreen/duck/utils';
+import { getPackageSizeAttribute } from 'utils/products';
 
 const getProductDetailsById = (
   state: import('MyTypes').RootState,
@@ -60,4 +60,22 @@ export const getCartItems = createSelector(
     ),
 );
 
-export default { getQuantityById, getCartItems } as const;
+export const getCartTotalInfo = createSelector(
+  getCartItems,
+  cartItems =>
+    cartItems.reduce(
+      (
+        acc: { totalPrice: number; totalAmount: number },
+        { price, quantity },
+      ) => {
+        acc.totalPrice += Number(price) * Number(quantity);
+        acc.totalAmount += Number(quantity);
+
+        return acc;
+      },
+
+      { totalPrice: 0, totalAmount: 0 },
+    ),
+);
+
+export default { getQuantityById, getCartItems, getCartTotalInfo } as const;

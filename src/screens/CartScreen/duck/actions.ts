@@ -2,10 +2,16 @@ import { createAsyncAction } from 'typesafe-actions';
 
 import types from './types';
 
+type UpdateCartData = {
+  products: import('ProductModels').ProductDetailsById;
+  variations: import('ProductModels').ProductVariationsById;
+  quantityById: import('CartModels').QuantityById;
+};
+
 const getCartProductsOverviewAsync = createAsyncAction(
-  types.getCartProductsOverviewRequest,
+  types.getCartProductsRequest,
   [
-    types.getCartProductsOverviewSuccess,
+    types.getCartProductsSuccess,
     (normalizedCartData: {
       normalizedProductsData: import('normalizr').NormalizedSchema<
         import('ProductModels').NormalizedProductDetailsList,
@@ -19,7 +25,7 @@ const getCartProductsOverviewAsync = createAsyncAction(
     }) => normalizedCartData,
   ],
   [
-    types.getCartProductsOverviewFailure,
+    types.getCartProductsFailure,
     (error: import('ErrorTypes').Error) => ({
       error,
     }),
@@ -44,13 +50,11 @@ const updateCartAsync = createAsyncAction(
   types.updateCartRequest,
   [
     types.updateCartSuccess,
-    (
-      cartData: Partial<{
-        quantityById: import('Cart').QuantityById;
-        products: import('ProductModels').ProductDetailsById;
-        variations: import('ProductModels').ProductVariationsById;
-      }> = { quantityById: {}, products: {}, variations: {} },
-    ) => cartData,
+    ({
+      products = {},
+      variations = {},
+      quantityById = {},
+    }: Partial<UpdateCartData>) => ({ products, variations, quantityById }),
   ],
   [
     types.updateCartFailure,
@@ -58,14 +62,9 @@ const updateCartAsync = createAsyncAction(
       error,
     }),
   ],
-)<
-  undefined,
-  Partial<{
-    quantityById: import('Cart').QuantityById;
-    products: import('ProductModels').ProductDetailsById;
-    variations: import('ProductModels').ProductVariationsById;
-  }>,
-  { error: import('ErrorTypes').Error }
->();
+)<undefined, UpdateCartData, { error: import('ErrorTypes').Error }>();
 
-export default { getCartProductsOverviewAsync, updateCartAsync } as const;
+export default {
+  getCartProductsOverviewAsync,
+  updateCartAsync,
+} as const;

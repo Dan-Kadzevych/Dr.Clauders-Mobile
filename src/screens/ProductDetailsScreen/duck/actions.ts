@@ -1,7 +1,10 @@
 import { createAsyncAction, createAction } from 'typesafe-actions';
 import { normalize } from 'normalizr';
 
-import { formatProductDetails, formatProductVariationList } from './utils';
+import {
+  formatProductVariationList,
+  formatProductDetails,
+} from 'utils/products';
 import types from './types';
 import { productDetailsSchema, productVariationListSchema } from '../schemas';
 
@@ -58,47 +61,12 @@ const getProductVariationsAsync = createAsyncAction(
   { error: import('ErrorTypes').Error }
 >();
 
-const addToCartAsync = createAsyncAction(
-  types.addToCartRequest,
-  [
-    types.addToCartSuccess,
-    (
-      cart: import('Cart').Cart,
-      addedProduct: import('utility-types').DeepReadonly<
-        import('ProductModels').ProductDetailsById
-      >,
-      addedVariation: import('utility-types').DeepReadonly<
-        import('ProductModels').ProductVariationsById
-      >,
-    ) => ({
-      quantityById: cart.quantityById,
-      products: addedProduct,
-      variations: addedVariation,
-    }),
-  ],
-  [
-    types.addToCartFailure,
-    (error: import('ErrorTypes').Error) => ({
-      error,
-    }),
-  ],
-)<
-  undefined,
-  {
-    quantityById: import('Cart').QuantityById;
-    products: import('ProductModels').ProductDetailsById;
-    variations: import('ProductModels').ProductVariationsById;
-  },
-  { error: import('ErrorTypes').Error }
->();
-
 const clearProductDetails = createAction(
   types.clearProductDetails,
   (productId: number, variationIds: number[]) => ({ productId, variationIds }),
 )<{ productId: number; variationIds: number[] }>();
 
 export default {
-  addToCartAsync,
   getProductDetailsAsync,
   getProductVariationsAsync,
   clearProductDetails,
