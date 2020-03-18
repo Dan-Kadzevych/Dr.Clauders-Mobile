@@ -1,23 +1,23 @@
 import { combineReducers } from 'redux';
 import { createReducer } from 'typesafe-actions';
-
 import uniq from 'lodash/uniq';
+import omit from 'lodash/omit';
+import without from 'lodash/without';
+
 import types from './types';
 
 type ProductsState = {
   byId: import('ProductModels').ProductDetailsById;
-  ids: (number | string)[];
+  ids: number[];
 };
 
 type ProductVariationsState = {
   byId: import('ProductModels').ProductVariationsById;
-  ids: (number | string)[];
+  ids: number[];
 };
 
-export type QuantityByID = { [key: string]: string | number };
-
 type QuantityState = {
-  byId: QuantityByID;
+  byId: import('CartModels').QuantityById;
 };
 
 export type CartState = import('utility-types').DeepReadonly<{
@@ -59,13 +59,32 @@ const productsReducer = createReducer(initialState.products)
     }),
   )
   .handleType(types.updateCartSuccess, (state, { payload: { products } }) => {
-    const productIds = Object.keys(products);
+    if (products) {
+      const productIds = Object.keys(products).map(Number);
+
+      return {
+        byId: { ...state.byId, ...products },
+        ids: uniq([...state.ids, ...productIds]),
+      };
+    }
+
+    return state;
+  })
+  .handleType(types.addToCartSuccess, (state, { payload: { products } }) => {
+    const productIds = Object.keys(products).map(Number);
 
     return {
       byId: { ...state.byId, ...products },
       ids: uniq([...state.ids, ...productIds]),
     };
-  });
+  })
+  .handleType(
+    types.removeFromCartSuccess,
+    (state, { payload: { productId } }) => ({
+      byId: omit(state.byId, productId),
+      ids: without(state.ids, productId),
+    }),
+  );
 
 const variationsReducer = createReducer(initialState.variations)
   .handleType(
@@ -86,13 +105,32 @@ const variationsReducer = createReducer(initialState.variations)
     }),
   )
   .handleType(types.updateCartSuccess, (state, { payload: { variations } }) => {
-    const variationIds = Object.keys(variations);
+    if (variations) {
+      const variationIds = Object.keys(variations).map(Number);
+
+      return {
+        byId: { ...state.byId, ...variations },
+        ids: uniq([...state.ids, ...variationIds]),
+      };
+    }
+
+    return state;
+  })
+  .handleType(types.addToCartSuccess, (state, { payload: { variations } }) => {
+    const variationIds = Object.keys(variations).map(Number);
 
     return {
       byId: { ...state.byId, ...variations },
       ids: uniq([...state.ids, ...variationIds]),
     };
-  });
+  })
+  .handleType(
+    types.removeFromCartSuccess,
+    (state, { payload: { variationId } }) => ({
+      byId: omit(state.byId, variationId),
+      ids: without(state.ids, variationId),
+    }),
+  );
 
 const quantityReducer = createReducer(initialState.quantity)
   .handleType(
@@ -103,8 +141,26 @@ const quantityReducer = createReducer(initialState.quantity)
   )
   .handleType(
     types.updateCartSuccess,
+    (state, { payload: { quantityById } }) => {
+      if (quantityById) {
+        return {
+          byId: { ...state.byId, ...quantityById },
+        };
+      }
+
+      return state;
+    },
+  )
+  .handleType(
+    types.addToCartSuccess,
     (state, { payload: { quantityById } }) => ({
       byId: { ...state.byId, ...quantityById },
+    }),
+  )
+  .handleType(
+    types.removeFromCartSuccess,
+    (state, { payload: { variationId } }) => ({
+      byId: omit(state.byId, variationId),
     }),
   );
 

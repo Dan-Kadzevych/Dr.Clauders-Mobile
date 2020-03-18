@@ -2,6 +2,8 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import { Button } from 'components';
+import { Colors } from 'styles';
+
 /* Typings
 ============================================================================= */
 
@@ -36,6 +38,8 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: 'white',
+    borderColor: Colors.geryLight,
+    borderTopWidth: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 15,

@@ -29,7 +29,7 @@ const CartItemFields: React.FC<Props> = ({ itemId }) => {
             onChange={value => {
               dispatch(
                 cartOperations.updateCartQuantity({
-                  [itemId]: value,
+                  [itemId]: Number(value),
                 }),
               );
             }}

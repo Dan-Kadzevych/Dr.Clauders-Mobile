@@ -1,3 +1,6 @@
+import omit from 'lodash/omit';
+import some from 'lodash/some';
+
 import {
   fetchProductById,
   fetchProductVariations,
@@ -7,14 +10,15 @@ import {
   formatProductVariationList,
   formatProductDetails,
 } from 'utils/products';
+import { MAX_QUANTITY } from 'utils/constants';
 import { normalizeProductDetails, normalizeProductVariations } from './utils';
 import actions from './actions';
 
-export const getCartProductsOverview = () => async (
+export const getCartProducts = () => async (
   dispatch: import('redux').Dispatch,
 ): Promise<void> => {
   try {
-    dispatch(actions.getCartProductsOverviewAsync.request());
+    dispatch(actions.getCartProductsAsync.request());
 
     const cart = await CartApi.getCart();
 
@@ -66,14 +70,14 @@ export const getCartProductsOverview = () => async (
     );
 
     dispatch(
-      actions.getCartProductsOverviewAsync.success({
+      actions.getCartProductsAsync.success({
         normalizedProductsData,
         normalizedVariationsData,
         quantityById: cart.quantityById,
       }),
     );
   } catch (e) {
-    dispatch(actions.getCartProductsOverviewAsync.failure(e));
+    dispatch(actions.getCartProductsAsync.failure(e));
   }
 };
 
@@ -100,10 +104,10 @@ export const updateCartQuantity = (
 export const addToCart = (
   product: import('ProductModels').ProductDetails,
   variation: import('ProductModels').ProductVariation,
-  quantity: string | number,
+  quantity: number,
 ) => async (dispatch: import('redux').Dispatch): Promise<void> => {
   try {
-    dispatch(actions.updateCartAsync.request());
+    dispatch(actions.addToCartAsync.request());
 
     const productId = product.id;
     const variationId = variation.id;
@@ -113,8 +117,13 @@ export const addToCart = (
     const cartItemQuantity = cart.quantityById[variationId];
 
     if (cartItem && cartItemQuantity) {
-      cart.quantityById[variationId] =
-        Number(cartItemQuantity) + Number(quantity);
+      let newQuantity = Number(cartItemQuantity) + Number(quantity);
+
+      if (newQuantity > MAX_QUANTITY) {
+        newQuantity = MAX_QUANTITY;
+      }
+
+      cart.quantityById[variationId] = newQuantity;
     } else {
       cart.itemsById[variationId] = {
         variationId,
@@ -126,10 +135,43 @@ export const addToCart = (
     await CartApi.setCart(cart);
 
     dispatch(
-      actions.updateCartAsync.success({
+      actions.addToCartAsync.success({
         products: { [productId]: product },
         variations: { [variationId]: variation },
         quantityById: cart.quantityById,
+      }),
+    );
+  } catch (e) {
+    dispatch(actions.addToCartAsync.failure(e));
+  }
+};
+
+export const removeFromCart = (
+  productId: number,
+  variationId: number,
+) => async (
+  dispatch: import('redux').Dispatch,
+  getState: () => import('MyTypes').RootState,
+): Promise<void> => {
+  try {
+    dispatch(actions.removeFromCartAsync.request());
+
+    const cart = await CartApi.getCart();
+
+    cart.itemsById = omit(cart.itemsById, variationId);
+    cart.quantityById = omit(cart.quantityById, variationId);
+
+    await CartApi.setCart(cart);
+
+    const shouldRemoveParentProduct = !some(
+      getState().cart.variations.byId,
+      ({ parentId, id }) => parentId === productId && id !== variationId,
+    );
+
+    dispatch(
+      actions.removeFromCartAsync.success({
+        productId: shouldRemoveParentProduct ? productId : undefined,
+        variationId,
       }),
     );
   } catch (e) {
@@ -138,7 +180,8 @@ export const addToCart = (
 };
 
 export default {
-  getCartProductsOverview,
+  getCartProducts,
   updateCartQuantity,
   addToCart,
+  removeFromCart,
 } as const;

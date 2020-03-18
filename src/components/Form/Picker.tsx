@@ -27,7 +27,7 @@ type Props = {
 ============================================================================= */
 
 const ChevronIcon: React.FC = () => (
-  <FontAwesome5 name="chevron-down" size={13} brand />
+  <FontAwesome5 name="chevron-down" size={13} />
 );
 
 const Picker: React.FC<Props> = ({

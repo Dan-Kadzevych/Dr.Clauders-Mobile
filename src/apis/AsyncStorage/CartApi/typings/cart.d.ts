@@ -5,7 +5,7 @@ declare module 'CartModels' {
   };
 
   export type QuantityById = {
-    [key: string]: number | string;
+    [key: string]: number;
   };
 
   export type Cart = {
@@ -19,7 +19,8 @@ declare module 'CartModels' {
     image: string;
     price: string | number;
     name: string;
-    quantity: string | number;
-    id: string | number;
+    quantity: number;
+    variationId: number;
+    productId: number;
   };
 }

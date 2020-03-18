@@ -8,21 +8,23 @@ type UpdateCartData = {
   quantityById: import('CartModels').QuantityById;
 };
 
-const getCartProductsOverviewAsync = createAsyncAction(
+type NormalizedCartData = {
+  normalizedProductsData: import('normalizr').NormalizedSchema<
+    import('ProductModels').NormalizedProductDetailsList,
+    number[]
+  >;
+  normalizedVariationsData: import('normalizr').NormalizedSchema<
+    import('ProductModels').NormalizedProductVariations,
+    number[]
+  >;
+  quantityById: import('CartModels').QuantityById;
+};
+
+const getCartProductsAsync = createAsyncAction(
   types.getCartProductsRequest,
   [
     types.getCartProductsSuccess,
-    (normalizedCartData: {
-      normalizedProductsData: import('normalizr').NormalizedSchema<
-        import('ProductModels').NormalizedProductDetailsList,
-        number[]
-      >;
-      normalizedVariationsData: import('normalizr').NormalizedSchema<
-        import('ProductModels').NormalizedProductVariations,
-        number[]
-      >;
-      quantityById: import('./reducer').QuantityByID;
-    }) => normalizedCartData,
+    (normalizedCartData: NormalizedCartData) => normalizedCartData,
   ],
   [
     types.getCartProductsFailure,
@@ -30,31 +32,17 @@ const getCartProductsOverviewAsync = createAsyncAction(
       error,
     }),
   ],
-)<
-  undefined,
-  {
-    normalizedProductsData: import('normalizr').NormalizedSchema<
-      import('ProductModels').NormalizedProductDetailsList,
-      number[]
-    >;
-    normalizedVariationsData: import('normalizr').NormalizedSchema<
-      import('ProductModels').NormalizedProductVariations,
-      number[]
-    >;
-    quantityById: import('./reducer').QuantityByID;
-  },
-  { error: import('ErrorTypes').Error }
->();
+)<undefined, NormalizedCartData, { error: import('ErrorTypes').Error }>();
 
 const updateCartAsync = createAsyncAction(
   types.updateCartRequest,
   [
     types.updateCartSuccess,
-    ({
-      products = {},
-      variations = {},
-      quantityById = {},
-    }: Partial<UpdateCartData>) => ({ products, variations, quantityById }),
+    ({ products, variations, quantityById }: Partial<UpdateCartData>) => ({
+      products,
+      variations,
+      quantityById,
+    }),
   ],
   [
     types.updateCartFailure,
@@ -64,7 +52,41 @@ const updateCartAsync = createAsyncAction(
   ],
 )<undefined, UpdateCartData, { error: import('ErrorTypes').Error }>();
 
+const addToCartAsync = createAsyncAction(
+  types.addToCartRequest,
+  [types.addToCartSuccess, (payload: UpdateCartData) => payload],
+  [
+    types.addToCartFailure,
+    (error: import('ErrorTypes').Error) => ({
+      error,
+    }),
+  ],
+)<undefined, UpdateCartData, { error: import('ErrorTypes').Error }>();
+
+const removeFromCartAsync = createAsyncAction(
+  types.removeFromCartRequest,
+  [
+    types.removeFromCartSuccess,
+    (payload: { productId?: number; variationId: number }) => payload,
+  ],
+  [
+    types.removeFromCartFailure,
+    (error: import('ErrorTypes').Error) => ({
+      error,
+    }),
+  ],
+)<
+  undefined,
+  {
+    productId: number;
+    variationId: number;
+  },
+  { error: import('ErrorTypes').Error }
+>();
+
 export default {
-  getCartProductsOverviewAsync,
+  getCartProductsAsync,
   updateCartAsync,
+  addToCartAsync,
+  removeFromCartAsync,
 } as const;

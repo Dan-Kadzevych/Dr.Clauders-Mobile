@@ -9,7 +9,7 @@ import {
   FavoritesScreen,
   CartScreen,
 } from 'screens';
-import { getCartProductsOverview } from 'screens/CartScreen/duck/operations';
+import { getCartProducts } from 'screens/CartScreen/duck/operations';
 
 /* StoreNavigator
 ============================================================================= */
@@ -22,7 +22,7 @@ const StoreNavigator: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCartProductsOverview());
+    dispatch(getCartProducts());
   }, [dispatch]);
 
   return (

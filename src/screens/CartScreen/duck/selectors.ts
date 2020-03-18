@@ -17,7 +17,7 @@ const getProductVariationsById = (
 
 const getQuantityById = (
   state: import('MyTypes').RootState,
-): import('./reducer').QuantityByID =>
+): import('CartModels').QuantityById =>
   get(state, 'cart.quantity.byId', emptyObj);
 
 export const getCartItems = createSelector(
@@ -45,7 +45,8 @@ export const getCartItems = createSelector(
                 price: variation.price,
                 name,
                 quantity,
-                id: variation.id,
+                variationId: variation.id,
+                productId: parent.id,
               };
             }
 

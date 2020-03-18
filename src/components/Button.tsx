@@ -10,14 +10,15 @@ import { Colors, Fonts } from 'styles';
 
 type Props = {
   onPress: () => void;
-  title: string;
-  disabled?: boolean;
   buttonStyle?: import('react-native').StyleProp<
     import('react-native').ViewStyle
   >;
   containerStyle?: import('react-native').StyleProp<
     import('react-native').ViewStyle
   >;
+  disabled?: boolean;
+  title?: string;
+  icon?: import('react-native-elements').IconNode;
 };
 
 /* Button
@@ -25,10 +26,12 @@ type Props = {
 
 const Button: React.FC<Props> = ({
   onPress,
-  title,
-  disabled,
   buttonStyle,
   containerStyle,
+  disabled,
+  title,
+  icon,
+  ...attributes
 }): React.ReactElement => (
   <RNEButton
     buttonStyle={[styles.button, buttonStyle]}
@@ -39,6 +42,8 @@ const Button: React.FC<Props> = ({
     disabled={disabled}
     disabledStyle={styles.disabled}
     disabledTitleStyle={styles.title}
+    icon={icon}
+    {...attributes} // eslint-disable-line react/jsx-props-no-spreading
   />
 );
 

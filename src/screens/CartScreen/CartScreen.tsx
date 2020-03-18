@@ -11,13 +11,9 @@ import { cartSelectors } from './duck';
 ============================================================================= */
 
 const CartScreen: React.FC = () => {
-  const cartItems = useSelector(cartSelectors.getCartItems);
-  const { totalPrice, totalAmount } = useSelector(
-    cartSelectors.getCartTotalInfo,
-  );
   const quantityById = useSelector(cartSelectors.getQuantityById);
 
-  if (!cartItems || !Object.keys(quantityById).length) {
+  if (!Object.keys(quantityById).length) {
     return <Text>Loading...</Text>;
   }
 
@@ -29,8 +25,8 @@ const CartScreen: React.FC = () => {
     >
       {({ handleSubmit }) => (
         <View style={styles.container}>
-          <TotalBar totalAmount={totalAmount} totalPrice={totalPrice} />
-          <CartItemList cartItems={cartItems} />
+          <TotalBar />
+          <CartItemList />
           <ActionsBar handleSubmit={handleSubmit} />
         </View>
       )}

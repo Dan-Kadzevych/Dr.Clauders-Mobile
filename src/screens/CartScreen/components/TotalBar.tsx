@@ -1,34 +1,26 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { Text } from 'components';
 import { Colors } from 'styles';
 import { normalize } from 'utils/styles';
-
-/* Typings
-============================================================================= */
-
-type Props = {
-  totalAmount: number | string;
-  totalPrice: number | string;
-};
+import { cartSelectors } from '../duck';
 
 /* TotalBar
 ============================================================================= */
 
-const TotalBar: React.FC<Props> = ({ totalAmount, totalPrice }) => (
-  <View style={styles.container}>
-    <Text>{totalAmount} товаров на сумму </Text>
-    <Text style={styles.price}>₴{totalPrice}</Text>
-  </View>
-);
+const TotalBar: React.FC = () => {
+  const { totalPrice, totalAmount } = useSelector(
+    cartSelectors.getCartTotalInfo,
+  );
 
-/* Default Props
-============================================================================= */
-
-TotalBar.defaultProps = {
-  totalAmount: '',
-  totalPrice: '',
+  return (
+    <View style={styles.container}>
+      <Text>{totalAmount} товаров на сумму </Text>
+      <Text style={styles.price}>₴{totalPrice}</Text>
+    </View>
+  );
 };
 
 /* StyleSheet

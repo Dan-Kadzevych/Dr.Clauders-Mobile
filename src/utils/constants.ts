@@ -6,6 +6,7 @@ export const PACKAGE_SIZE_ATTRIBUTE_NAMES = [
   'размер-упаковки',
 ];
 
+export const MAX_QUANTITY = 10;
 const getQtyOptions = (qty: number): import('FormTypes').OptionList => {
   const options = [];
 
@@ -16,4 +17,4 @@ const getQtyOptions = (qty: number): import('FormTypes').OptionList => {
   return options;
 };
 
-export const QTY_OPTIONS = getQtyOptions(10);
+export const QTY_OPTIONS = getQtyOptions(MAX_QUANTITY);

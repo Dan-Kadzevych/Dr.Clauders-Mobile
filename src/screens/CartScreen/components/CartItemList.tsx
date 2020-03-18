@@ -1,49 +1,45 @@
 import React from 'react';
 import { StyleSheet, FlatList } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import CartItem from './CartItem';
-
-/* Typings
-============================================================================= */
-
-type Props = {
-  cartItems: import('CartModels').CartItem[];
-};
+import { cartSelectors } from '../duck';
 
 /* CartItemList
 ============================================================================= */
 
-const CartItemList: React.FC<Props> = ({ cartItems }) => (
-  <FlatList
-    contentContainerStyle={styles.listContainer}
-    data={cartItems}
-    keyExtractor={({ id }) => id.toString()}
-    renderItem={({ item: { image, name, price, id }, index }) => (
-      <CartItem
-        imageUri={image}
-        name={name}
-        price={price}
-        id={id}
-        index={index}
-      />
-    )}
-  />
-);
+const CartItemList: React.FC = () => {
+  const cartItems = useSelector(cartSelectors.getCartItems);
+
+  return (
+    <FlatList
+      contentContainerStyle={styles.listContainer}
+      data={cartItems}
+      keyExtractor={({ variationId }) => variationId.toString()}
+      renderItem={({
+        item: { image, name, price, variationId, productId },
+        index,
+      }) => (
+        <CartItem
+          listLength={cartItems.length}
+          imageUri={image}
+          name={name}
+          price={price}
+          variationId={variationId}
+          productId={productId}
+          index={index}
+        />
+      )}
+    />
+  );
+};
 
 /* Default Props
 ============================================================================= */
 
-CartItemList.defaultProps = {
-  cartItems: [],
-};
-
-/* StyleSheet
-============================================================================= */
-
 const styles = StyleSheet.create({
   listContainer: {
-    paddingHorizontal: 5,
-    paddingVertical: 10,
+    paddingBottom: 80,
   },
 });
 
