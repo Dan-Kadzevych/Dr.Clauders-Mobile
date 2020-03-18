@@ -1,5 +1,6 @@
-import utils from '../utils';
+import utils from 'utils/products';
 import testData from '../testData';
+import { getProductSubtitle } from '../utils';
 
 describe('Product Details Utils', () => {
   test('formatProductDetails: should format product details', () => {
@@ -14,7 +15,7 @@ describe('Product Details Utils', () => {
   test('formatProductVariations: should format product variations', () => {
     const expected = testData.productVariations;
 
-    const formattedVariations = utils.formatProductVariations(
+    const formattedVariations = utils.formatProductVariationList(
       testData.productVariationListResponse,
       testData.productId,
     );
@@ -33,7 +34,7 @@ describe('Product Details Utils', () => {
   test('getProductSubtitle: should return product subtitle', () => {
     const expected = testData.productSubtitle;
 
-    const formattedProducts = utils.getProductSubtitle(testData.productDetails);
+    const formattedProducts = getProductSubtitle(testData.productDetails);
 
     expect(formattedProducts).toEqual(expected);
   });

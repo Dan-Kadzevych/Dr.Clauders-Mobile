@@ -31,3 +31,9 @@ export const formatProductVariationList = (
   parentId: number,
 ): import('ProductModels').ProductVariationList =>
   variations.map(v => omit({ ...v, parentId }, '_links'));
+
+export default {
+  getPackageSizeAttribute,
+  formatProductDetails,
+  formatProductVariationList,
+};

@@ -45,22 +45,6 @@ describe('Product Details Operations', () => {
     });
   });
 
-  describe('Add To Cart', () => {
-    test('Should dispatch correct actions on success', async () => {
-      const store = mockStore();
-      const expectedActionTypes = [
-        types.addToCartRequest,
-        types.addToCartSuccess,
-      ];
-
-      await store.dispatch(operations.addToCart(testData.cartProduct));
-
-      const actions = store.getActions();
-      const actionTypes = actions.map(action => action.type);
-
-      expect(actionTypes).toEqual(expectedActionTypes);
-    });
-  });
   describe('Clear Product Details', () => {
     test('Should dispatch correct actions on success', async () => {
       const store = mockStore();

@@ -72,37 +72,6 @@ describe('Products Details Actions', () => {
     });
   });
 
-  describe('Add To Cart Async', () => {
-    test('Add To Cart Request', () => {
-      const action = actions.addToCartAsync.request();
-      const expectedAction = {
-        type: types.addToCartRequest,
-      };
-
-      expect(action).toEqual(expectedAction);
-    });
-    test('Add To Cart Success', () => {
-      const action = actions.addToCartAsync.success(testData.cart);
-
-      const expectedAction = {
-        type: types.addToCartSuccess,
-        payload: testData.cart,
-      };
-
-      expect(action).toEqual(expectedAction);
-    });
-    test('Add To Cart Failure', () => {
-      const action = actions.addToCartAsync.failure(testData.error);
-      const expectedAction = {
-        type: types.addToCartFailure,
-        payload: {
-          error: testData.error,
-        },
-      };
-
-      expect(action).toEqual(expectedAction);
-    });
-  });
   test('Clear Product Details Request', () => {
     const action = actions.clearProductDetails(
       testData.productId,
