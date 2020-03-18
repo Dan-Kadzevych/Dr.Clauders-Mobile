@@ -8,7 +8,7 @@ import { Text } from 'components';
 import { Colors } from 'styles';
 import { AddToCartForm, Info } from './components';
 import { productDetailsOperations, productDetailsSelectors } from './duck';
-import { getProductSubtitle, findDetailsScreenRoute } from './duck/utils';
+import { getProductSubtitle /* findDetailsScreenRoute */ } from './duck/utils';
 
 /* Typings
 ============================================================================= */
@@ -23,7 +23,7 @@ export type Props = {
 /* ProductDetailsScreen
 ============================================================================= */
 
-const ProductDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
+const ProductDetailsScreen: React.FC<Props> = ({ route /* navigation */ }) => {
   const {
     params: { productId },
   } = route;
@@ -49,17 +49,17 @@ const ProductDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
     };
   }, [dispatch, productId]);
 
-  useEffect(
-    () => () => {
-      const { routes, index } = navigation.dangerouslyGetState();
-      const shouldClear = !findDetailsScreenRoute(routes, productId, index);
-
-      if (shouldClear) {
-        dispatch(productDetailsOperations.clearProductDetails(productId));
-      }
-    },
-    [dispatch, navigation, productId],
-  );
+  // useEffect(
+  //   () => () => {
+  //     const { routes, index } = navigation.dangerouslyGetState();
+  //     const shouldClear = !findDetailsScreenRoute(routes, productId, index);
+  //
+  //     if (shouldClear) {
+  //       dispatch(productDetailsOperations.clearProductDetails(productId));
+  //     }
+  //   },
+  //   [dispatch, navigation, productId],
+  // );
 
   const {
     getProductDetails,

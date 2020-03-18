@@ -1,6 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 import { Text } from 'components';
@@ -35,6 +41,9 @@ const CartItem: React.FC<Props> = ({
   index,
   listLength,
 }) => {
+  const navigation = useNavigation<
+    import('NavigatorModels').CartNavigationProp<'CartScreen'>
+  >();
   const dispatch = useDispatch();
 
   return (
@@ -56,19 +65,27 @@ const CartItem: React.FC<Props> = ({
       rightThreshold={40}
       overshootRight={false}
     >
-      <View
-        style={[
-          styles.itemContainer,
-          index === listLength - 1 && styles.paddingLeft,
-        ]}
+      <TouchableWithoutFeedback
+        onPress={() =>
+          navigation.navigate('ProductDetails', {
+            productId,
+          })
+        }
       >
-        <Image source={{ uri: imageUri }} style={styles.image} />
-        <View style={styles.details}>
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.price}>₴{price}</Text>
-          <CartItemFields itemId={variationId} />
+        <View
+          style={[
+            styles.itemContainer,
+            index === listLength - 1 && styles.paddingLeft,
+          ]}
+        >
+          <Image source={{ uri: imageUri }} style={styles.image} />
+          <View style={styles.details}>
+            <Text style={styles.name}>{name}</Text>
+            <Text style={styles.price}>₴{price}</Text>
+            <CartItemFields itemId={variationId} />
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Swipeable>
   );
 };

@@ -56,4 +56,11 @@ declare module 'NavigatorModels' {
     CartOverview: undefined;
     ProductDetails: { productId: number };
   };
+
+  export type CartNavigationProp<
+    Screen extends keyof CartStackParamList
+  > = CompositeNavigationProp<
+    StackNavigationProp<CartStackParamList, Screen>,
+    StoreNavigationProp
+  >;
 }
