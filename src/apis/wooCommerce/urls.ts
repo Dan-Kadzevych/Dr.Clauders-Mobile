@@ -2,9 +2,9 @@
 ============================================================================= */
 
 export const getAllProductsUrl = () => '/products' as const;
-export const getProductByIdUrl = (productsId: number) =>
+export const getProductByIdUrl = (productsId: import('General').Id) =>
   `/products/${productsId}`;
-export const getProductVariationsUrl = (productId: number) =>
+export const getProductVariationsUrl = (productId: import('General').Id) =>
   `/products/${productId}/variations`;
 
 /* CategoryUrls

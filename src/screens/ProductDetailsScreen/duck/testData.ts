@@ -1,12 +1,12 @@
 import { normalize } from 'normalizr';
 import compact from 'lodash/compact';
 
-import { productDetailsSchema, productVariationListSchema } from '../schemas';
 import {
-  formatProductDetails,
-  formatProductVariations,
   getPackageSizeAttribute,
-} from './utils';
+  formatProductDetails,
+  formatProductVariationList,
+} from 'utils/products';
+import { productDetailsSchema, productVariationListSchema } from '../schemas';
 
 const productId = 92;
 
@@ -144,14 +144,17 @@ const productVariationListResponse: import('ProductModels').ProductVariationList
   },
 ];
 
-const cartProduct: import('Cart').CartProduct = {
-  id: '92',
-  quantity: 1,
+const cartProduct: import('CartModels').CartProduct = {
+  variationId: 717,
+  productId: 92,
 };
 
-const cart: import('Cart').Cart = {
-  items: {
-    '92': 1,
+const cart: import('CartModels').Cart = {
+  itemsById: {
+    '717': cartProduct,
+  },
+  quantityById: {
+    '717': 1,
   },
 };
 
@@ -170,7 +173,7 @@ const normalizedProductVariations = normalize<
   import('ProductModels').NormalizedProductVariations,
   number[]
 >(
-  formatProductVariations(productVariationListResponse, productId),
+  formatProductVariationList(productVariationListResponse, productId),
   productVariationListSchema,
 );
 

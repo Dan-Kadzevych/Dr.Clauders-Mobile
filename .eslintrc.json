@@ -32,6 +32,7 @@
     "import/no-unresolved": "off",
     "import/extensions": "off",
     "import/prefer-default-export": "off",
+    "no-unused-expressions": ["error", { "allowShortCircuit": true }],
     "arrow-body-style": [
       "error",
       "as-needed",
@@ -71,7 +72,8 @@
     ],
     "react/jsx-curly-newline": "off",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-one-expression-per-line": "off"
   },
   "settings": {
     "react": {

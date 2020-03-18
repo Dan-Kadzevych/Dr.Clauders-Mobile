@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 
 import {
@@ -54,36 +53,6 @@ export const getProductVariations = (
   }
 };
 
-export const addToCart = (product: import('Cart').CartProduct) => async (
-  dispatch: import('redux').Dispatch,
-): Promise<void> => {
-  try {
-    dispatch(actions.addToCartAsync.request());
-
-    const formattedData: import('Cart').Cart = {
-      items: { [product.id]: product.quantity },
-    };
-
-    const cartJson = await AsyncStorage.getItem('cart');
-
-    if (cartJson) {
-      const cart: import('Cart').Cart = JSON.parse(cartJson);
-      const qtyInCart = cart.items[product.id];
-
-      if (qtyInCart) {
-        formattedData.items[product.id] =
-          Number(formattedData.items[product.id]) + Number(qtyInCart);
-      }
-    }
-
-    await AsyncStorage.mergeItem('cart', JSON.stringify(formattedData));
-
-    dispatch(actions.addToCartAsync.success(formattedData));
-  } catch (e) {
-    dispatch(actions.addToCartAsync.failure(e));
-  }
-};
-
 export const clearProductDetails = (productId: number) => (
   dispatch: import('redux').Dispatch,
   getState: () => import('MyTypes').RootState,
@@ -96,7 +65,6 @@ export const clearProductDetails = (productId: number) => (
 };
 
 export default {
-  addToCart,
   getProductDetails,
   getProductVariations,
   clearProductDetails,

@@ -7,12 +7,18 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { Colors, Fonts } from 'styles';
 import { normalize } from 'utils/styles';
 
+/* Eslint Rules
+============================================================================= */
+
+/* eslint-disable react/jsx-props-no-spreading */
+
 /* Typings
 ============================================================================= */
 
 type Props = {
   name: string;
   items: import('FormTypes').OptionList;
+  onChange?: (v: string | number) => void;
   placeholder: Partial<import('FormTypes').Option>;
   prefix?: string;
 };
@@ -21,44 +27,37 @@ type Props = {
 ============================================================================= */
 
 const ChevronIcon: React.FC = () => (
-  <FontAwesome5 name="chevron-down" size={13} brand />
+  <FontAwesome5 name="chevron-down" size={13} />
 );
 
 const Picker: React.FC<Props> = ({
   name,
   items,
+  onChange,
   placeholder,
   children,
   prefix,
 }) => {
   const [field, , helpers] = useField(name);
+  const pickerProps = {
+    doneText: 'Выбрать',
+    Icon: ChevronIcon,
+    items,
+    onValueChange: (v: string | number) => {
+      onChange && onChange(v);
+      helpers.setValue(v);
+    },
+    placeholder,
+    style: styles,
+    value: field.value,
+  };
 
   if (children) {
-    return (
-      <RNPickerSelect
-        doneText="Выбрать"
-        Icon={ChevronIcon}
-        items={items}
-        onValueChange={v => helpers.setValue(v)}
-        placeholder={placeholder}
-        style={styles}
-        value={field.value}
-      >
-        {children}
-      </RNPickerSelect>
-    );
+    return <RNPickerSelect {...pickerProps}>{children}</RNPickerSelect>;
   }
 
   return (
-    <RNPickerSelect
-      doneText="Выбрать"
-      Icon={ChevronIcon}
-      items={items}
-      onValueChange={v => helpers.setValue(v)}
-      placeholder={placeholder}
-      style={styles}
-      value={field.value}
-    >
+    <RNPickerSelect {...pickerProps}>
       {prefix && (
         <>
           <TextInput
@@ -81,6 +80,7 @@ const Picker: React.FC<Props> = ({
 Picker.defaultProps = {
   name: '',
   items: [],
+  onChange: () => {}, // eslint-disable-line @typescript-eslint/no-empty-function
   placeholder: {},
   prefix: '',
 };

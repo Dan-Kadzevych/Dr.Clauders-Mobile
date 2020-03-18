@@ -7,8 +7,8 @@ import * as Yup from 'yup';
 import { Button, Picker, Text } from 'components';
 import { Colors } from 'styles';
 import { normalize } from 'utils/styles';
-import { QTY_OPTIONS } from '../duck/constants';
-import { addToCart } from '../duck/operations';
+import { QTY_OPTIONS } from 'utils/constants';
+import { addToCart } from 'screens/CartScreen/duck/operations';
 
 /* Typings
 ============================================================================= */
@@ -16,6 +16,7 @@ import { addToCart } from '../duck/operations';
 type Props = {
   defaultPackageSizeValue: string;
   packageSizeOptions: import('FormTypes').OptionList;
+  product: import('ProductModels').ProductDetails;
   variations: import('ProductModels').ProductVariationsById;
 };
 
@@ -33,9 +34,10 @@ const AddToBagSchema = Yup.object().shape({
 /* AddToBagForm
 ============================================================================= */
 
-const AddToBagForm: React.FC<Props> = ({
+const AddToCartForm: React.FC<Props> = ({
   defaultPackageSizeValue,
   packageSizeOptions,
+  product,
   variations,
 }) => {
   const dispatch = useDispatch();
@@ -47,8 +49,8 @@ const AddToBagForm: React.FC<Props> = ({
         quantity: 1,
       }}
       validationSchema={AddToBagSchema}
-      onSubmit={async ({ packageSize: id, quantity }) =>
-        dispatch(addToCart({ id, quantity }))
+      onSubmit={async ({ packageSize: variationId, quantity }) =>
+        dispatch(addToCart(product, variations[variationId], quantity))
       }
     >
       {({ values, handleSubmit, isSubmitting, isValid }) => {
@@ -95,9 +97,10 @@ const AddToBagForm: React.FC<Props> = ({
 /* DefaultProps
 ============================================================================= */
 
-AddToBagForm.defaultProps = {
+AddToCartForm.defaultProps = {
   defaultPackageSizeValue: '',
   packageSizeOptions: [],
+  product: {} as import('ProductModels').ProductDetails,
   variations: {},
 };
 
@@ -136,4 +139,4 @@ const styles = StyleSheet.create({
 /* Export
 ============================================================================= */
 
-export default AddToBagForm;
+export default AddToCartForm;

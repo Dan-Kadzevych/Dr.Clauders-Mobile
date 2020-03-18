@@ -29,9 +29,9 @@ const ProductsOverviewScreen: React.FC<Props> = ({ navigation }) => {
   }, [dispatch]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <FlatList
-        contentContainerStyle={styles.list}
+        contentContainerStyle={styles.listContainer}
         data={products}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item, index }) => (
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  list: {
+  listContainer: {
     paddingBottom: 10,
     paddingLeft: 5,
     paddingRight: 5,

@@ -1,4 +1,4 @@
-import AddToBagForm from './AddToBagForm';
+import AddToCartForm from './AddToCartForm';
 import Info from './Info';
 
-export { AddToBagForm, Info };
+export { AddToCartForm, Info };

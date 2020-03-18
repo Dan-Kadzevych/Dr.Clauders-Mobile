@@ -10,8 +10,15 @@ import { Colors, Fonts } from 'styles';
 
 type Props = {
   onPress: () => void;
-  title: string;
+  buttonStyle?: import('react-native').StyleProp<
+    import('react-native').ViewStyle
+  >;
+  containerStyle?: import('react-native').StyleProp<
+    import('react-native').ViewStyle
+  >;
   disabled?: boolean;
+  title?: string;
+  icon?: import('react-native-elements').IconNode;
 };
 
 /* Button
@@ -19,17 +26,24 @@ type Props = {
 
 const Button: React.FC<Props> = ({
   onPress,
-  title,
+  buttonStyle,
+  containerStyle,
   disabled,
+  title,
+  icon,
+  ...attributes
 }): React.ReactElement => (
   <RNEButton
-    buttonStyle={styles.button}
+    buttonStyle={[styles.button, buttonStyle]}
+    containerStyle={containerStyle}
     onPress={onPress}
     title={title}
     titleStyle={styles.title}
     disabled={disabled}
     disabledStyle={styles.disabled}
     disabledTitleStyle={styles.title}
+    icon={icon}
+    {...attributes} // eslint-disable-line react/jsx-props-no-spreading
   />
 );
 
@@ -40,6 +54,8 @@ Button.defaultProps = {
   onPress: () => {}, // eslint-disable-line @typescript-eslint/no-empty-function
   title: '',
   disabled: false,
+  buttonStyle: undefined,
+  containerStyle: undefined,
 };
 
 /* StyleSheet

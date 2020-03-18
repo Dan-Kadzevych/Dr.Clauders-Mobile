@@ -21,6 +21,7 @@ export const fetchProducts = (
       params: {
         _fields: WOO_PRODUCT_OVERVIEW_FIELDS,
         per_page: WOO_PRODUCT_PER_PAGE,
+        type: 'variable',
         ...params,
       },
       ...config,
@@ -28,7 +29,7 @@ export const fetchProducts = (
   );
 
 export const fetchProductById = (
-  id: number,
+  id: import('General').Id,
   params: import('Woo').Params = {},
   config: import('axios').AxiosRequestConfig = {},
 ) =>
@@ -44,7 +45,7 @@ export const fetchProductById = (
   );
 
 export const fetchProductVariations = (
-  id: number,
+  id: import('General').Id,
   params: import('Woo').Params = {},
   config: import('axios').AxiosRequestConfig = {},
 ) =>

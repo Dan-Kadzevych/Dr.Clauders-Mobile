@@ -64,9 +64,12 @@ declare module 'ProductModels' {
     variations: number[];
   };
 
+  export type ProductDetailsList = ProductDetails[];
+
   export type ProductDetailsById = { [key: string]: ProductDetails };
 
   export type NormalizedProductDetails = { product: ProductDetailsById };
+  export type NormalizedProductDetailsList = { products: ProductDetailsById };
 
   /* Product Variation Typings
 ============================================================================= */
